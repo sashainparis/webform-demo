@@ -1,10 +1,7 @@
 "use client"
 
 import Link from "next/link";
-// import { headers } from "next/headers";
-// import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-// import { data } from "autoprefixer";
 
 export default function Login({
     searchParams,
@@ -12,18 +9,20 @@ export default function Login({
     searchParams: { message: string };
 }) {
     const saveSupabase = async (formData: FormData) => {
-        // "use server";
-        // testSupabase(formData);
         return redirect("/ok");
     }
 
     const setToLocalStorage = (name: string, value: string) => {
-        localStorage.setItem(name, value)
+        if (typeof window !== 'undefined') {
+            localStorage.setItem(name, value)
+        }
     }
     const getToLocalStorage = (name: string) => {
-        return localStorage.getItem(name) || undefined
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem(name) || undefined
+        }
     }
-    
+
     return (
         <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
             <Link

@@ -1,11 +1,5 @@
 import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-// import { createClient } from "@/utils/supabase/server";
-import ConnectSupabaseSteps from "@/components/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/SignUpUserSteps";
 import Header from "@/components/Header";
-import { createClient } from "@/utils/supabase/client";
-import { useEffect } from "react";
 import MainBody from "@/components/MainBody";
 
 export default async function Index() {
