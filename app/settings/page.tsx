@@ -55,8 +55,8 @@ export default function Login({
                 </label>
                 <input
                     className="rounded-md px-4 py-2 bg-inherit border mb-6"
-                    name="supabase_url"
-                    value={getToLocalStorage("supabase_url")}
+                    name="supabase_url" 
+                    defaultValue={getToLocalStorage("supabase_url")}
                     placeholder="httsp://..."
                     required
                     onChange={event => setToLocalStorage(event.target.name, event.target.value)}
@@ -67,7 +67,7 @@ export default function Login({
                 <input
                     className="rounded-md px-4 py-2 bg-inherit border mb-6"
                     name="supabase_key"
-                    value={getToLocalStorage("supabase_key")}
+                    defaultValue={getToLocalStorage("supabase_key")}
                     placeholder="f245ez..."
                     required
                     onChange={event => setToLocalStorage(event.target.name, event.target.value)}
