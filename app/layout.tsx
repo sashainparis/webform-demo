@@ -5,6 +5,7 @@ import Link from "next/link";
 import MainLogo from "@/components/MainLogo";
 import AuthButton from "@/components/AuthButton";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
+import NavigationButtons from "@/components/NavigationButtons";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -35,12 +36,9 @@ export default function RootLayout({
                       <div className="text-xl">Octopus CEO - Dashboard</div>
                     </div>
                   </Link>
-                  <Link
-                    className="py-2 px-3 flex rounded-md no-underline hover:bg-btn-background-hover border"
-                    href="/data"
-                  >
-                    Data
-                  </Link>
+                  <div className="flex gap-4 justify-center items-center">
+                    <NavigationButtons />
+                  </div>
                   <div className="flex gap-4 justify-center items-center">
                     <SettingsButtons />
                     <AuthButton />
