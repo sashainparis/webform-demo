@@ -1,10 +1,8 @@
 "use client"
 
-import { WebformType, loadWebformByName } from "@/utils/drupal/webform";
-import { Webform } from "nextjs-drupal-webform/src/Webform";
+import {loadWebformByName } from "@/utils/drupal/webform";
 import TitlePage from "./TitlePage";
 import { useEffect, useState } from "react";
-import { WebformDataType, WebformObject } from "nextjs-drupal-webform/src/types";
 
 type Props = {
     title: string

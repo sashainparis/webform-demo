@@ -1,9 +1,3 @@
-import { WebformDataType } from "nextjs-drupal-webform/src/types";
-
-export type WebformType = WebformDataType & {
-    settings?: any,
-} | undefined
-
 
 function getFetchOptions(): RequestInit {
     return {
@@ -16,7 +10,7 @@ function getServiceUrl(bundle: string) {
     return `https://account.octopusceo.com/sysapi/webform/${bundle}`;
 }
 
-function normalizeWebform (id: string, uuid: string, webform: WebformType) {
+function normalizeWebform (id: string, uuid: string, webform: any) {
     return {
         id: id,
         uuid: uuid,
