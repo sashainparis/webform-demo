@@ -17,5 +17,4 @@ export default function DashboardCard({ title, children }: Props) {
             </Card>
         </>
     )
-
 }

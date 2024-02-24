@@ -1,4 +1,44 @@
 
+
+export type WebformElements = {
+    [propName: string]: WebformField,
+}
+
+export type WebformFieldTextarea = WebformField & {
+    "rows"?: number,
+}
+
+export type WebformFieldCheckboxes = WebformField & {
+    "options": string[],
+}
+
+export type WebformField = {
+    "type": string,
+    "title": string,
+    "required"?: boolean,
+    "default_value"?: string,
+    "placeholder"?: string,
+}
+
+export type WebformData = {
+    description: string,
+    elements: string,
+    id: string,
+    status: string,
+    title: string,
+    uuid: string,
+}
+
+export type WebformObject = {
+    description: string,
+    elements?: WebformElements,
+    id: string,
+    status: string,
+    title: string,
+    uuid: string,
+}
+
+
 function getFetchOptions(): RequestInit {
     return {
         cache: "no-cache",
@@ -10,7 +50,7 @@ function getServiceUrl(bundle: string) {
     return `https://account.octopusceo.com/sysapi/webform/${bundle}`;
 }
 
-function normalizeWebform (id: string, uuid: string, webform: any) {
+function normalizeWebform(id: string, uuid: string, webform: any) {
     return {
         id: id,
         uuid: uuid,
@@ -18,13 +58,12 @@ function normalizeWebform (id: string, uuid: string, webform: any) {
         description: webform.description,
         status: webform.status,
         confirmation: {
-          type: webform.settings.confirmation_type,
-          url: webform.settings.confirmation_url,
-          message: webform.settings.confirmation_message,
+            type: webform.settings.confirmation_type,
+            url: webform.settings.confirmation_url,
+            message: webform.settings.confirmation_message,
         },
         elements: webform.elements,
-      };
-    
+    };
 }
 
 export async function loadWebform(id: string) {
