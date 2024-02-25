@@ -21,8 +21,6 @@ export default function Sync() {
     const [accessIsTested, setAccessIsTested] = useState(false);
 
     const canIinitSupabaseClient = () => {
-        // This function is just for the interactive tutorial.
-        // Feel free to remove it once you have Supabase connected.
         try {
             createClient();
             return true;
