@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField';
 
 export default function FormSettings() {
     const saveSupabase = async (formData: FormData) => {
-        return redirect("/ok");
+        return redirect("/sync");
     }
 
     const setToLocalStorage = (name: string, value: string) => {
@@ -34,9 +34,9 @@ export default function FormSettings() {
             <TextField
                 // label="URL"
                 variant="outlined"
-                name="supabase_url"
+                name="supabase--url"
                 className="bg-white"
-                defaultValue={getToLocalStorage("supabase_url")}
+                defaultValue={getToLocalStorage("supabase--url")}
                 placeholder="httsp://..."
                 required
                 onChange={event => setToLocalStorage(event.target.name, event.target.value)}
@@ -46,9 +46,9 @@ export default function FormSettings() {
             </label>
             <TextField
                 // label="API Key"
-                name="supabase_key"
+                name="supabase--key"
                 className="bg-white"
-                defaultValue={getToLocalStorage("supabase_key")}
+                defaultValue={getToLocalStorage("supabase--key")}
                 placeholder="f245ez..."
                 required
                 onChange={event => setToLocalStorage(event.target.name, event.target.value)}

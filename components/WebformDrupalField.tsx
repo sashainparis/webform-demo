@@ -10,6 +10,7 @@ import {
     FormGroup,
 } from '@mui/material';
 import { WebformField, WebformFieldCheckboxes, WebformFieldTextarea } from "@/utils/drupal/webform";
+import slugify from 'slugify';
 
 type Props = {
     field: WebformField,
@@ -18,17 +19,35 @@ type Props = {
 
 const defaultVariant = "filled"
 
-const setToLocalStorage = (name: string, value: string) => {
+const setToLocalStorage = (name: string, form: string, value: string) => {
     console.log(name);
     console.log(value);
     if (typeof window !== 'undefined') {
-        localStorage.setItem(`form-test-${name}`, value)
+        localStorage.setItem(`form-${form}-${name}`, value)
     }
 }
-const getToLocalStorage = (name: string) => {
+
+export const getToLocalStorage = (name: string, form: string) => {
+    console.log(localStorage.key);
     if (typeof window !== 'undefined') {
-        return localStorage.getItem(`form-test-${name}`) || ""
+        return localStorage.getItem(`form-${form}-${name}`) || ""
     }
+}
+
+export const getToLocalStorageByForm = (formName: string) => {
+    let i;
+    let results = {};
+    for (i in localStorage) {
+        if (localStorage.hasOwnProperty(i)) {
+            if (i.match(formName) && localStorage.getItem(i)) {
+                results = {
+                    ...results,
+                    [i]: localStorage.getItem(i),
+                }
+            }
+        }
+    }
+    return results;
 }
 
 function loadField(field: WebformField, variant: TextFieldVariants = defaultVariant) {
@@ -47,38 +66,46 @@ function loadField(field: WebformField, variant: TextFieldVariants = defaultVari
 }
 
 function textfield(field: WebformField, variant: TextFieldVariants) {
+    const slug = slugify(field.title);
+    const form = field?.form ?? "";
     return <TextField
         label={field.title}
         className="bg-white"
         variant={variant}
-        defaultValue={getToLocalStorage(field.title)}
-        onChange={event => setToLocalStorage(field.title, event.target.value)}
+        defaultValue={getToLocalStorage(slug, form)}
+        onChange={event => setToLocalStorage(slug, form, event.target.value)}
     />
 }
 
 function textarea(field: WebformFieldTextarea, variant: TextFieldVariants) {
+    const slug = slugify(field.title);
+    const form = field?.form ?? "";
     return <TextField
         label={field.title}
         className="bg-white"
         variant={variant}
         multiline
         rows={field.rows ?? 4}
-        defaultValue={getToLocalStorage(field.title)}
-        onChange={event => setToLocalStorage(field.title, event.target.value)}
+        defaultValue={getToLocalStorage(slug, form)}
+        onChange={event => setToLocalStorage(slug, form, event.target.value)}
     />
 }
 
 function checkbox(field: WebformField, variant: TextFieldVariants) {
-    return buildCheckbox(field.title, field.title);
+    const form = field?.form ?? "";
+    return buildCheckbox(field.title, field.title, form);
 }
 
-function buildCheckbox(option: string, label: string) {
+function buildCheckbox(option: string, label: string, form: string, wrapper: string = "") {
+    const slugWrapper = slugify(wrapper);
+    const slugOption = slugify(option);
+    const name = (wrapper) ? `${slugWrapper}--${slugOption}` : slugOption;
     return <FormControlLabel
-        value={option}
-        id={option}
+        value={name}
+        id={name}
         control={<Checkbox
-            defaultChecked={(option === getToLocalStorage(option)) ? true : false}
-            onChange={event => (option === getToLocalStorage(option)) ? setToLocalStorage(option, "") : setToLocalStorage(option, event.target.value)}
+            defaultChecked={(name === getToLocalStorage(name, form)) ? true : false}
+            onChange={event => (name === getToLocalStorage(name, form)) ? setToLocalStorage(name, form, "") : setToLocalStorage(name, form, event.target.value)}
         />}
         label={label}
         labelPlacement="end"
@@ -88,10 +115,11 @@ function buildCheckbox(option: string, label: string) {
 
 function checkboxes(field: WebformFieldCheckboxes, variant: TextFieldVariants) {
     let checkboxes = [];
+    const form = field?.form ?? "";
     for (const option in field.options) {
         const text = field.options[option].split(" -- ");
         const label = text[1] ? `${text[0]} (${text[1]})` : text[0];
-        const currentCheckbox = buildCheckbox(option, label);
+        const currentCheckbox = buildCheckbox(option, label, form, field.title);
         checkboxes.push(currentCheckbox);
     }
     return (

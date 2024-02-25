@@ -2,7 +2,17 @@
 
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
+import { Button } from '@mui/material';
+import { getToLocalStorageByForm } from "@/components/WebformDrupalField";
 
+async function saveWebform(formId: string) {
+    console.log("--- SAVE Webform ---");
+    const form = `form-${formId}`;
+    const values = getToLocalStorageByForm(form);
+    const supabase = createClient();
+    const result = await supabase.from("dashboard").insert({ form_id: formId, data: values });
+    console.log(result);
+}
 
 export default function Sync() {
     const [connected, setConnected] = useState(false);
@@ -50,7 +60,8 @@ export default function Sync() {
             <div>
                 {accessed ? "Test accès réussie" : "Echec du test d'accès"}
             </div>
+            <Button type="submit" variant="contained" onClick={() => { saveWebform("test") }}>Save TEST Form to DB</Button>
+            <Button type="submit" variant="contained" onClick={() => { saveWebform("contact") }}>Save CONTACT Form to DB</Button>
         </>
     )
-
 }

@@ -5,7 +5,6 @@ import YAML from "js-yaml";
 import { WebformData, WebformField, WebformObject } from '@/utils/drupal/webform';
 import WebformDrupalField from './WebformDrupalField';
 import WebformBox from './WebformBox';
-import { Button } from '@mui/material';
 
 type Props = {
     webform: any,
@@ -69,19 +68,6 @@ export default function WebformDrupal({ webform }: Props) {
         elements: getElements(values?.elements),
     }
 
-    const saveWebform = async (formData: FormData) => {
-        console.log(formData);
-        let msg: string[] = [];
-        if (webformValues.elements) {
-            Object.values(webformValues.elements).map((field: WebformField) => {
-                if (field) {
-                    msg.push(`${field.title} : ${formData.get(field.title)}`);
-                }
-            })
-        }
-        setMessage(msg);
-    }
-
     function renderedWebform(webform: WebformObject) {
         const elements = webform.elements ?? {};
         if (!elements) {
@@ -91,15 +77,21 @@ export default function WebformDrupal({ webform }: Props) {
         }
 
         const fields = Object.values(elements).map((field: WebformField, key) => {
+            field = {
+                ...field,
+                form: webform.id,
+            }
             return <WebformDrupalField key={key} field={field} />
         })
         return (
             <>
-                <WebformBox 
-                    action={saveWebform} 
-                >
+                <WebformBox>
                     {fields}
-                    <Button type="submit" variant="contained" >GOGO !!!</Button>
+                    {/* <Button
+                        type="submit"
+                        variant="contained"
+                        onClick={() => {saveWebform("test")} }
+                    >GOGO !!!</Button> */}
                 </WebformBox>
             </>
         )

@@ -18,6 +18,7 @@ export type WebformField = {
     "required"?: boolean,
     "default_value"?: string,
     "placeholder"?: string,
+    "form"?: string,
 }
 
 export type WebformData = {
