@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
 export default function FormSettings() {
-    const saveSupabase = async (formData: FormData) => {
+    const goSync = async (formData: FormData) => {
         return redirect("/sync");
     }
 
@@ -24,7 +24,7 @@ export default function FormSettings() {
         <Box
             component="form"
             className="flex-1 flex flex-col w-full md:w-96 mx-auto justify-center gap-y-2 text-foreground"
-            action={saveSupabase}
+            action={goSync}
             noValidate
             autoComplete="off"
         >

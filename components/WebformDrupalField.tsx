@@ -23,14 +23,14 @@ const setToLocalStorage = (name: string, form: string, value: string) => {
     console.log(name);
     console.log(value);
     if (typeof window !== 'undefined') {
-        localStorage.setItem(`form-${form}-${name}`, value)
+        localStorage.setItem(`form--${form}--${name}`, value)
     }
 }
 
 export const getToLocalStorage = (name: string, form: string) => {
     console.log(localStorage.key);
     if (typeof window !== 'undefined') {
-        return localStorage.getItem(`form-${form}-${name}`) || ""
+        return localStorage.getItem(`form--${form}--${name}`) || ""
     }
 }
 

@@ -1,3 +1,5 @@
+import { getToLocalStorageByForm } from "@/components/WebformDrupalField";
+import { createClient } from "@/utils/supabase/client";
 
 
 export type WebformElements = {
@@ -86,3 +88,93 @@ export async function fetchWebforms() {
     // data.data = data.data.filter((datum: any) => (datum.attributes.field_disabled === false))
     return data;
 }
+
+export async function listImportWebform(formId: string) {
+    const supabase = createClient();
+    const { data: dashboard } = await supabase.from("dashboard")
+        .select()
+        .eq('form_id', formId)
+        .order('created_at', { ascending: false })
+        .limit(10)
+        ;
+    return dashboard;
+}
+
+export async function importWebform(formId: string, id: string) {
+    const supabase = createClient();
+    const result = await supabase.from("dashboard")
+        .select('data, created_at, id')
+        .eq('form_id', formId)
+        .eq('id', id)
+        ;
+    console.log(result);
+}
+
+export async function saveWebform(formId: string) {
+    console.log("--- SAVE Webform ---");
+    const form = `form--${formId}`;
+    const values = getToLocalStorageByForm(form);
+    console.log(values);
+    let data: any = {};
+    Object.keys(values).map((name: string) => {
+        const tree = name.split("--");
+        console.log(tree);
+        const key1 = tree[2] ?? "";
+        const key2 = tree[3] ?? "";
+        const key3 = tree[4] ?? "";
+        const key4 = tree[5] ?? "";
+
+        const max = tree.length - 2;
+        for (let i = 0; i <= max; i++) {
+            if (i === max) {
+                const key = tree[i - 1];
+                // @ts-ignore
+                const value = values[name];
+                console.log(value);
+                switch (max) {
+                    case 1:
+                        data[key1] = value;
+                        break;
+                    case 2:
+                        data[key1][key2] = value;
+                        break;
+                    case 3:
+                        data[key1][key2][key3] = value;
+                        break;
+                    case 4:
+                        data[key1][key2][key3][key4] = value;
+                }
+            }
+            else if (i === 0 && !data[key1]) {
+                data = {
+                    ...data,
+                    [key1]: {},
+                }
+            }
+            else if (i === 1 && !data[key1][key2]) {
+                data[key1] = {
+                    ...data[key1],
+                    [key2]: {},
+                }
+            }
+            else if (i === 2 && !data[key1][key2][key3]) {
+                data[key1][key2] = {
+                    ...data[key1][key2],
+                    [key3]: {},
+                }
+            }
+            else if (i === 3 && data[key1][key2][key3][key4]) {
+                data[key1][key2][key3] = {
+                    ...data[key1][key2][key3],
+                    [key4]: {},
+                }
+            }
+        }
+    })
+    console.log(data);
+
+    const supabase = createClient();
+    const result = await supabase.from("dashboard").insert({ form_id: formId, data: data });
+    console.log(result);
+}
+

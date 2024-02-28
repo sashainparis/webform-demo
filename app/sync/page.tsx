@@ -1,24 +1,22 @@
 "use client"
 
-import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { Button } from '@mui/material';
-import { getToLocalStorageByForm } from "@/components/WebformDrupalField";
+import { createClient } from "@/utils/supabase/client";
+import { saveWebform } from "@/utils/drupal/webform";
+import ArchList from "@/components/ArchList";
 
-async function saveWebform(formId: string) {
-    console.log("--- SAVE Webform ---");
-    const form = `form-${formId}`;
-    const values = getToLocalStorageByForm(form);
-    const supabase = createClient();
-    const result = await supabase.from("dashboard").insert({ form_id: formId, data: values });
-    console.log(result);
-}
 
 export default function Sync() {
     const [connected, setConnected] = useState(false);
     const [connexionIsTested, setConnexionIsTested] = useState(false);
+
     const [accessed, setAccessed] = useState(false);
     const [accessIsTested, setAccessIsTested] = useState(false);
+
+    const [loaded, setLoaded] = useState(false);
+    const [archiveTest, setArchiveTest]: any = useState();
+    const [archiveContact, setArchiveContact]: any = useState();
 
     const canIinitSupabaseClient = () => {
         try {
@@ -28,8 +26,8 @@ export default function Sync() {
             return false;
         }
     };
-
-    const canIaccessSupabaseDatabase = async () => {
+    
+        const canIaccessSupabaseDatabase = async () => {
         const supabase = createClient();
         const { data: dashboard } = await supabase.from("dashboard").select();
 
@@ -39,27 +37,100 @@ export default function Sync() {
         return false;
     };
 
+
+    useEffect(() => {
+        const loadArchive = async (name: string) => {
+            const supabase = createClient();
+            const { data: dashboard } =  await supabase.from("dashboard")
+            .select()
+            .eq('form_id', name)
+            .order('created_at', {ascending: false})
+            .limit(10)
+            ;
+            return dashboard;
+        
+
+            // const result = await listImportWebform(name).then(value => value);
+            // return result;
+        }
+        // if (!loaded) {
+        //     const testValues = loadArchive('test');
+        //     console.log(testValues);
+        //     const contactValues = loadArchive('contact');
+        //     console.log(contactValues);
+        //     setArchiveTest(testValues);
+        //     setArchiveContact(contactValues);
+        //     setLoaded(true);
+        // }
+
+
+        const fetchPosts = async () => {
+            const supabase = createClient();
+            const { data: testValues } =  await supabase.from("dashboard")
+            .select()
+            .eq('form_id', 'test')
+            .order('created_at', {ascending: false})
+            .limit(10)
+            ;
+            const { data: contactValues } =  await supabase.from("dashboard")
+            .select()
+            .eq('form_id', 'contact')
+            .order('created_at', {ascending: false})
+            .limit(10)
+            ;
+            setArchiveTest(testValues);
+            setArchiveContact(contactValues);
+            setLoaded(true);
+        }
+
+        fetchPosts()
+    }, [
+        setArchiveTest,
+        setArchiveContact,
+        setLoaded])
+
     useEffect(() => {
         if (!connexionIsTested) {
             setConnected(canIinitSupabaseClient());
             setConnexionIsTested(true);
         }
+    }, [setConnected,
+        setConnexionIsTested])
+
+    useEffect(() => {
         if (!accessIsTested) {
             canIaccessSupabaseDatabase();
             setAccessIsTested(true);
         }
-    }, [])
+    }, [canIaccessSupabaseDatabase,
+        setAccessIsTested])
 
     return (
         <>
-            <div>
-                {connected ? "Connexion réussie" : "Echec de connexion"}
+            <div className="container-xl mx-auto">
+
+                <div>
+                    {connected ? "Connexion réussie" : "Echec de connexion"}
+                </div>
+                <div>
+                    {accessed ? "Test accès réussie" : "Echec du test d'accès"}
+                </div>
+                <div className="">
+                    <h2 className="text-2xl py-4">Save your data</h2>
+                    <div className="py-4">
+                        <Button type="submit" variant="contained" onClick={() => { saveWebform("test") }}>Save TEST Form to DB</Button>
+                    </div>
+                    <div className="py-4">
+                        <Button type="submit" variant="contained" onClick={() => { saveWebform("contact") }}>Save CONTACT Form to DB</Button>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="text-2xl py-4">Reload your data</h2>
+                    {archiveTest && <ArchList key="test" name="test" title="Test" items={archiveTest} />}
+                    {archiveContact && <ArchList key="contat" name="contact" title="Contact" items={archiveContact} />}
+                </div>
             </div>
-            <div>
-                {accessed ? "Test accès réussie" : "Echec du test d'accès"}
-            </div>
-            <Button type="submit" variant="contained" onClick={() => { saveWebform("test") }}>Save TEST Form to DB</Button>
-            <Button type="submit" variant="contained" onClick={() => { saveWebform("contact") }}>Save CONTACT Form to DB</Button>
         </>
     )
 }
+
