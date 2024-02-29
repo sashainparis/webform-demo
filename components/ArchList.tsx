@@ -1,6 +1,6 @@
 "use client"
 
-import { importWebform } from '@/utils/drupal/webform';
+import importWebform from '@/utils/supabase/webform_import';
 import { Button } from '@mui/material';
 
 type Props = {

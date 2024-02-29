@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 import YAML from "js-yaml";
-import { WebformData, WebformField, WebformObject } from '@/utils/drupal/webform';
+import { 
+    WebformData, 
+    WebformField, 
+    WebformObject 
+} from '@/utils/drupal/webform_types';
 import WebformDrupalField from './WebformDrupalField';
 import WebformBox from './WebformBox';
 

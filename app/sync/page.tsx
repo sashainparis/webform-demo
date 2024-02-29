@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from '@mui/material';
 import { createClient } from "@/utils/supabase/client";
-import { saveWebform } from "@/utils/drupal/webform";
+import saveWebform from "@/utils/supabase/webform_save";
 import ArchList from "@/components/ArchList";
 
 

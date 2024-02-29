@@ -9,7 +9,11 @@ import {
     FormLabel,
     FormGroup,
 } from '@mui/material';
-import { WebformField, WebformFieldCheckboxes, WebformFieldTextarea } from "@/utils/drupal/webform";
+import { 
+    WebformField, 
+    WebformFieldCheckboxes,
+    WebformFieldTextarea 
+    } from "@/utils/drupal/webform_types";
 import slugify from 'slugify';
 
 type Props = {
