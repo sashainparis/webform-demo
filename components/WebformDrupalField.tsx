@@ -15,6 +15,7 @@ import {
     WebformFieldTextarea 
     } from "@/utils/drupal/webform_types";
 import slugify from 'slugify';
+import { getWebformFromLocalStorage } from '@/utils/localstorage/webform_get';
 
 type Props = {
     field: WebformField,
@@ -22,37 +23,6 @@ type Props = {
 }
 
 const defaultVariant = "filled"
-
-const setToLocalStorage = (name: string, form: string, value: string) => {
-    console.log(name);
-    console.log(value);
-    if (typeof window !== 'undefined') {
-        localStorage.setItem(`form--${form}--${name}`, value)
-    }
-}
-
-export const getToLocalStorage = (name: string, form: string) => {
-    console.log(localStorage.key);
-    if (typeof window !== 'undefined') {
-        return localStorage.getItem(`form--${form}--${name}`) || ""
-    }
-}
-
-export const getToLocalStorageByForm = (formName: string) => {
-    let i;
-    let results = {};
-    for (i in localStorage) {
-        if (localStorage.hasOwnProperty(i)) {
-            if (i.match(formName) && localStorage.getItem(i)) {
-                results = {
-                    ...results,
-                    [i]: localStorage.getItem(i),
-                }
-            }
-        }
-    }
-    return results;
-}
 
 function loadField(field: WebformField, variant: TextFieldVariants = defaultVariant) {
     let rendered;
@@ -76,8 +46,8 @@ function textfield(field: WebformField, variant: TextFieldVariants) {
         label={field.title}
         className="bg-white"
         variant={variant}
-        defaultValue={getToLocalStorage(slug, form)}
-        onChange={event => setToLocalStorage(slug, form, event.target.value)}
+        defaultValue={getWebformFromLocalStorage(slug, form)}
+        onChange={event => setWebformToLocalStorage(slug, form, event.target.value)}
     />
 }
 
@@ -90,8 +60,8 @@ function textarea(field: WebformFieldTextarea, variant: TextFieldVariants) {
         variant={variant}
         multiline
         rows={field.rows ?? 4}
-        defaultValue={getToLocalStorage(slug, form)}
-        onChange={event => setToLocalStorage(slug, form, event.target.value)}
+        defaultValue={getWebformFromLocalStorage(slug, form)}
+        onChange={event => setWebformToLocalStorage(slug, form, event.target.value)}
     />
 }
 
@@ -108,8 +78,8 @@ function buildCheckbox(option: string, label: string, form: string, wrapper: str
         value={name}
         id={name}
         control={<Checkbox
-            defaultChecked={(name === getToLocalStorage(name, form)) ? true : false}
-            onChange={event => (name === getToLocalStorage(name, form)) ? setToLocalStorage(name, form, "") : setToLocalStorage(name, form, event.target.value)}
+            defaultChecked={(name === getWebformFromLocalStorage(name, form)) ? true : false}
+            onChange={event => (name === getWebformFromLocalStorage(name, form)) ? setWebformToLocalStorage(name, form, "") : setWebformToLocalStorage(name, form, event.target.value)}
         />}
         label={label}
         labelPlacement="end"

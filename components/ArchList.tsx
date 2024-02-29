@@ -23,7 +23,7 @@ export default function ArchList({ name, title, items }: Props) {
             const hour = d.toISOString().slice(11,16);
             const created = `${date} ${hour}`
             return (
-                <div className="py-4 grid grid-cols-2 gap-x-4">
+                <div key={item.id} className="py-4 grid grid-cols-2 gap-x-4">
                     <span className=''>{created}</span> 
                     <Button className='' type="submit" variant="outlined" onClick={() => { importWebform(name, item.id) }}>Load [{item.id}]</Button>
                 </div>

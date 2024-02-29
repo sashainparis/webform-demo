@@ -1,9 +1,9 @@
-import { getToLocalStorageByForm } from "@/components/WebformDrupalField";
 import { createClient } from "@/utils/supabase/client";
+import { getWebformFromLocalStorageByName } from "../localstorage/webform_get";
 
 export default async function saveWebform(formId: string) {
     const form = `form--${formId}`;
-    const values = getToLocalStorageByForm(form);
+    const values = getWebformFromLocalStorageByName(form);
     let data: any = {};
     Object.keys(values).map((name: string) => {
         const tree = name.split("--");

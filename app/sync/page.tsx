@@ -39,31 +39,6 @@ export default function Sync() {
 
 
     useEffect(() => {
-        const loadArchive = async (name: string) => {
-            const supabase = createClient();
-            const { data: dashboard } =  await supabase.from("dashboard")
-            .select()
-            .eq('form_id', name)
-            .order('created_at', {ascending: false})
-            .limit(10)
-            ;
-            return dashboard;
-        
-
-            // const result = await listImportWebform(name).then(value => value);
-            // return result;
-        }
-        // if (!loaded) {
-        //     const testValues = loadArchive('test');
-        //     console.log(testValues);
-        //     const contactValues = loadArchive('contact');
-        //     console.log(contactValues);
-        //     setArchiveTest(testValues);
-        //     setArchiveContact(contactValues);
-        //     setLoaded(true);
-        // }
-
-
         const fetchPosts = async () => {
             const supabase = createClient();
             const { data: testValues } =  await supabase.from("dashboard")
