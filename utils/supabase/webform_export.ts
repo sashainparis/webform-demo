@@ -1,9 +1,20 @@
 import { createClient } from "@/utils/supabase/client";
 import { getWebformFromLocalStorageByName } from "../localstorage/webform_get";
 
-export default async function saveWebform(formId: string) {
+export default async function exportWebform(formId: string) {
     const form = `form--${formId}`;
-    const values = getWebformFromLocalStorageByName(form);
+    const values = getWebformFromLocalStorageByName(form); 
+    const data = structValues(values);
+    const result = await saveWebform(formId, data);
+    console.log(result);
+}
+
+export async function saveWebform(formId: string, data: any) {
+    const supabase = createClient();
+    return await supabase.from("dashboard").insert({ form_id: formId, data: data });
+}
+
+function structValues(values: any) {
     let data: any = {};
     Object.keys(values).map((name: string) => {
         const tree = name.split("--");
@@ -58,8 +69,5 @@ export default async function saveWebform(formId: string) {
             }
         }
     })
-
-    const supabase = createClient();
-    const result = await supabase.from("dashboard").insert({ form_id: formId, data: data });
-    console.log(result);
+    return data;
 }

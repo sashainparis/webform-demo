@@ -10,12 +10,9 @@ type Props = {
 }
 
 export default function ArchList({ name, title, items }: Props) {
-    console.log(name);
-    console.log(items);
     let buttons;
     if (items) {
         buttons = items.map((item: any) => {
-            console.log(item);
             let s = item.created_at;
             let d = new Date(s);
             d.setUTCDate(d.getUTCDate() + 1);

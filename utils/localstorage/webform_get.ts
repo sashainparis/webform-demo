@@ -1,7 +1,6 @@
 
 
 export const getWebformFromLocalStorage = (name: string, form: string) => {
-    console.log(localStorage.key);
     if (typeof window !== 'undefined') {
         return localStorage.getItem(`form--${form}--${name}`) || ""
     }

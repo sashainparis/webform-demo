@@ -15,6 +15,7 @@ import {
     WebformFieldTextarea 
     } from "@/utils/drupal/webform_types";
 import slugify from 'slugify';
+import { setWebformToLocalStorage } from '@/utils/localstorage/webform_set';
 import { getWebformFromLocalStorage } from '@/utils/localstorage/webform_get';
 
 type Props = {
@@ -47,7 +48,7 @@ function textfield(field: WebformField, variant: TextFieldVariants) {
         className="bg-white"
         variant={variant}
         defaultValue={getWebformFromLocalStorage(slug, form)}
-        onChange={event => setWebformToLocalStorage(slug, form, event.target.value)}
+        onChange={event => setWebformToLocalStorage(form, slug, event.target.value)}
     />
 }
 
@@ -61,7 +62,7 @@ function textarea(field: WebformFieldTextarea, variant: TextFieldVariants) {
         multiline
         rows={field.rows ?? 4}
         defaultValue={getWebformFromLocalStorage(slug, form)}
-        onChange={event => setWebformToLocalStorage(slug, form, event.target.value)}
+        onChange={event => setWebformToLocalStorage(form, slug, event.target.value)}
     />
 }
 
@@ -79,7 +80,7 @@ function buildCheckbox(option: string, label: string, form: string, wrapper: str
         id={name}
         control={<Checkbox
             defaultChecked={(name === getWebformFromLocalStorage(name, form)) ? true : false}
-            onChange={event => (name === getWebformFromLocalStorage(name, form)) ? setWebformToLocalStorage(name, form, "") : setWebformToLocalStorage(name, form, event.target.value)}
+            onChange={event => (name === getWebformFromLocalStorage(name, form)) ? setWebformToLocalStorage(form, name, "") : setWebformToLocalStorage(form, name, event.target.value)}
         />}
         label={label}
         labelPlacement="end"

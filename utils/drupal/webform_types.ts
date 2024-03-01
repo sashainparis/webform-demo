@@ -1,4 +1,8 @@
 
+export type WebformValues = {
+    [propName: string]: string,
+}
+
 export type WebformElements = {
     [propName: string]: WebformField,
 }

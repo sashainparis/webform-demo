@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Button } from '@mui/material';
 import { createClient } from "@/utils/supabase/client";
-import saveWebform from "@/utils/supabase/webform_save";
+import exportWebform from "@/utils/supabase/webform_export";
 import ArchList from "@/components/ArchList";
 
 
@@ -93,10 +93,10 @@ export default function Sync() {
                 <div className="">
                     <h2 className="text-2xl py-4">Save your data</h2>
                     <div className="py-4">
-                        <Button type="submit" variant="contained" onClick={() => { saveWebform("test") }}>Save TEST Form to DB</Button>
+                        <Button type="submit" variant="contained" onClick={() => { exportWebform("test") }}>Save TEST Form to DB</Button>
                     </div>
                     <div className="py-4">
-                        <Button type="submit" variant="contained" onClick={() => { saveWebform("contact") }}>Save CONTACT Form to DB</Button>
+                        <Button type="submit" variant="contained" onClick={() => { exportWebform("contact") }}>Save CONTACT Form to DB</Button>
                     </div>
                 </div>
                 <div>
