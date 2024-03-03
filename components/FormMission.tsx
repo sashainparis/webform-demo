@@ -20,7 +20,7 @@ export default function FormMision() {
     return (
         <Box
             component="form"
-            className="flex-1 flex flex-col w-full md:w-96 mx-auto justify-center gap-y-2 text-foreground"
+            className="flex-1 flex flex-col w-full mx-auto justify-center gap-y-2 text-foreground"
             // action={saveSupabase}
             noValidate
             autoComplete="off"

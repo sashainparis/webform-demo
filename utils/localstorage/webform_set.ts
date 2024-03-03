@@ -1,9 +1,50 @@
+import { WebformValues } from "../drupal/webform_types";
+import { getWebformFromLocalStorage } from "./webform_get"
 
 export const setFieldToLocalStorage = (form: string, name: string, value: string) => {
     if (typeof window !== 'undefined') {
-        localStorage.setItem(`form--${form}--${name}`, value)
+        let values = getWebformFromLocalStorage(form);
+        console.log(values);
+        values = {
+            ...values,
+            [name]: value, 
+        }
+        console.log(values);
+            setWebformToLocalStorage(form, values);
     }
 }
 
-export const setWebformToLocalStorage = (form: string, name: string, value: string) => {
+export const setOptionToLocalStorage = (form: string, option: string, name: string, value: string) => {
+    if (typeof window !== 'undefined') {
+        let values = getWebformFromLocalStorage(form);
+        console.log(values);
+        values = {
+            ...values,
+            [option]: {
+                ...values[option],
+                [name]: value,
+            } 
+        }
+        console.log(values);
+            setWebformToLocalStorage(form, values);
+    }
 }
+
+export const setWebformToLocalStorage = (form: string, values: WebformValues) => {
+    if (typeof window !== 'undefined') {
+        localStorage.setItem(`form--${form}`, JSON.stringify(values))
+    }
+}
+
+// export const setWebformToLocalStorage = (form: string, name: string, value: string) => {
+//     let values = getWebformFromLocalStorage(form);
+//     console.log(values);
+//     values = {
+//         ...values,
+//         [name]: value, 
+//     }
+//     console.log(values);
+//     if (typeof window !== 'undefined') {
+//         localStorage.setItem(`form--${form}`, JSON.stringify(values))
+//     }
+// }

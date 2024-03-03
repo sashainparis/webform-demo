@@ -9,18 +9,18 @@ import {
     FormLabel,
     FormGroup,
 } from '@mui/material';
-import { 
-    WebformField, 
+import {
+    WebformField,
     WebformFieldCheckboxes,
-    WebformFieldTextarea 
-    } from "@/utils/drupal/webform_types";
+    WebformFieldTextarea
+} from "@/utils/drupal/webform_types";
 import slugify from 'slugify';
-import { setFieldToLocalStorage } from '@/utils/localstorage/webform_set';
-import { getFieldFromLocalStorage } from '@/utils/localstorage/webform_get';
+import { setFieldToLocalStorage, setOptionToLocalStorage } from '@/utils/localstorage/webform_set';
+import { getFieldFromLocalStorage, getOptionFromLocalStorage } from '@/utils/localstorage/webform_get';
 
 type Props = {
     field: WebformField,
-    variant?: TextFieldVariants, 
+    variant?: TextFieldVariants,
     key: number,
 }
 
@@ -77,20 +77,36 @@ function checkbox(field: WebformField) {
 
 function buildCheckbox(option: string, label: string, form: string, wrapper: string = "", key: number = 0) {
     const slugWrapper = slugify(wrapper);
-    const slugOption = slugify(option);
-    const name = (wrapper) ? `${slugWrapper}--${slugOption}` : slugOption;
+    console.log(slugWrapper);
+    const name = slugify(option);
+    console.log(name);
+    // const name = (wrapper) ? `${slugWrapper}--${slugOption}` : slugOption;
+    // const name = slugOption;
+    let defaultValue;
+    if(wrapper) {
+        defaultValue = (name === getOptionFromLocalStorage(slugWrapper, name, form)) ? true : false;
+    } else {
+        defaultValue = (name === getFieldFromLocalStorage(name, form)) ? true : false;
+    }
     return <FormControlLabel
         key={key}
         value={name}
         id={name}
         control={<Checkbox
-            defaultChecked={(name === getFieldFromLocalStorage(name, form)) ? true : false}
-            onChange={event => (
-                name === getFieldFromLocalStorage(name, form)) 
-                ? setFieldToLocalStorage(form, name, "") 
-                : setFieldToLocalStorage(form, name, event.target.value)
-            }
-        />}
+            defaultChecked={defaultValue}
+            onChange={event => {
+                if (wrapper) {
+                    name === getOptionFromLocalStorage(slugWrapper, name, form)
+                        ? setOptionToLocalStorage(form, slugWrapper, name, "")
+                        : setOptionToLocalStorage(form, slugWrapper, name, event.target.value)
+                } else {
+                    name === getFieldFromLocalStorage(name, form)
+                        ? setFieldToLocalStorage(form, name, "")
+                        : setFieldToLocalStorage(form, name, event.target.value)
+                }
+            }}
+        />
+        }
         label={label}
         labelPlacement="end"
     />

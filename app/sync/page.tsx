@@ -17,6 +17,7 @@ export default function Sync() {
     const [loaded, setLoaded] = useState(false);
     const [archiveTest, setArchiveTest]: any = useState();
     const [archiveContact, setArchiveContact]: any = useState();
+    const [archiveMission1, setArchiveMission1]: any = useState();
 
     const canIinitSupabaseClient = () => {
         try {
@@ -53,8 +54,15 @@ export default function Sync() {
             .order('created_at', {ascending: false})
             .limit(10)
             ;
+            const { data: mission1Values } =  await supabase.from("dashboard")
+            .select()
+            .eq('form_id', 'mission1')
+            .order('created_at', {ascending: false})
+            .limit(10)
+            ;
             setArchiveTest(testValues);
             setArchiveContact(contactValues);
+            setArchiveMission1(mission1Values);
             setLoaded(true);
         }
 
@@ -62,6 +70,7 @@ export default function Sync() {
     }, [
         setArchiveTest,
         setArchiveContact,
+        setArchiveMission1,
         setLoaded])
 
     useEffect(() => {
@@ -82,7 +91,7 @@ export default function Sync() {
 
     return (
         <>
-            <div className="container-xl mx-auto">
+            <div className="w-3/4">
 
                 <div>
                     {connected ? "Connexion réussie" : "Echec de connexion"}
@@ -98,11 +107,15 @@ export default function Sync() {
                     <div className="py-4">
                         <Button type="submit" variant="contained" onClick={() => { exportWebform("contact") }}>Save CONTACT Form to DB</Button>
                     </div>
+                    <div className="py-4">
+                        <Button type="submit" variant="contained" onClick={() => { exportWebform("mission1") }}>Save MISSION1 Form to DB</Button>
+                    </div>
                 </div>
                 <div>
                     <h2 className="text-2xl py-4">Reload your data</h2>
                     {archiveTest && <ArchList key="test" name="test" title="Test" items={archiveTest} />}
-                    {archiveContact && <ArchList key="contat" name="contact" title="Contact" items={archiveContact} />}
+                    {archiveContact && <ArchList key="contact" name="contact" title="Contact" items={archiveContact} />}
+                    {archiveMission1 && <ArchList key="mission1" name="mission1" title="Mission 1" items={archiveMission1} />}
                 </div>
             </div>
         </>

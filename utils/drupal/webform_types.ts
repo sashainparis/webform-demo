@@ -1,7 +1,7 @@
 import { TextFieldVariants } from '@mui/material';
 
 export type WebformValues = {
-    [propName: string]: string,
+    [propName: string]: string |string[],
 }
 
 export type WebformElements = {

@@ -1,4 +1,3 @@
-import WebformDrupal from "@/components/WebformDrupal";
 import { loadWebformByName } from "@/utils/drupal/webform";
 import dynamic from "next/dynamic";
 

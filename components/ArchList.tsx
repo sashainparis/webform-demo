@@ -16,21 +16,25 @@ export default function ArchList({ name, title, items }: Props) {
             let s = item.created_at;
             let d = new Date(s);
             d.setUTCDate(d.getUTCDate() + 1);
-            const date = d.toISOString().slice(0,10);
-            const hour = d.toISOString().slice(11,16);
-            const created = `${date} ${hour}`
+            const date = d.toLocaleDateString('fr-FR');
+            const hour = d.toLocaleTimeString('fr-FR', {timeStyle: "short"});
+            // const created = `${date} <b>${hour}</b>`
             return (
-                <div key={item.id} className="py-4 grid grid-cols-2 gap-x-4">
-                    <span className=''>{created}</span> 
-                    <Button className='' type="submit" variant="outlined" onClick={() => { importWebform(name, item.id) }}>Load [{item.id}]</Button>
+                <div key={item.id} className="py-2 grid grid-cols-subgrid col-span-2 gap-4">
+                    <div className=''>{date} <b>{hour}</b></div>
+                    <div>
+                        <Button className='' type="submit" variant="outlined" onClick={() => { importWebform(name, item.id) }}>Load [{item.id}]</Button>
+                    </div>
                 </div>
             );
         })
     }
     return (
         <>
-            <h3 className='text-xl font-bold'>{title}</h3>
-            {buttons}
+            <h3 className='pt-8 text-xl font-bold'>{title}</h3>
+            <div className="grid grid-cols-4 gap-x-4 gap-y-2">
+                {buttons}
+            </div>
         </>
     )
 }
