@@ -75,7 +75,7 @@ function checkbox(field: WebformField) {
     return buildCheckbox(field.title, field.title, form);
 }
 
-function buildCheckbox(option: string, label: string, form: string, wrapper: string = "", key: number) {
+function buildCheckbox(option: string, label: string, form: string, wrapper: string = "", key: number = 0) {
     const slugWrapper = slugify(wrapper);
     const slugOption = slugify(option);
     const name = (wrapper) ? `${slugWrapper}--${slugOption}` : slugOption;
