@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import YAML from "js-yaml";
-import { 
-    WebformData, 
-    WebformField, 
-    WebformObject 
+import {
+    WebformData,
+    WebformField,
+    WebformObject
 } from '@/utils/drupal/webform_types';
 import WebformDrupalField from './WebformDrupalField';
 import WebformBox from './WebformBox';
@@ -13,6 +13,8 @@ import WebformBox from './WebformBox';
 type Props = {
     webform: any,
 }
+
+const defaultVariant = "filled"
 
 function getElements(elements: string) {
     const values = YAML.load(elements);
@@ -42,7 +44,7 @@ export default function WebformDrupal({ webform }: Props) {
     const values: WebformData = JSON.parse(webform.value);
 
     const WebformHeader = (webform: WebformObject) => {
-        const renderedMessage = message.map((line: string) => (<div>{line}</div>))
+        const renderedMessage = message.map((line: string, key: number) => (<div key={key}>{line}</div>))
         return (
             <>
                 <div>
@@ -83,7 +85,9 @@ export default function WebformDrupal({ webform }: Props) {
         const fields = Object.values(elements).map((field: WebformField, key) => {
             field = {
                 ...field,
-                form: webform.id,
+                form: webform.id, 
+                key: key, 
+                variant: defaultVariant,
             }
             return <WebformDrupalField key={key} field={field} />
         })
@@ -91,11 +95,6 @@ export default function WebformDrupal({ webform }: Props) {
             <>
                 <WebformBox>
                     {fields}
-                    {/* <Button
-                        type="submit"
-                        variant="contained"
-                        onClick={() => {saveWebform("test")} }
-                    >GOGO !!!</Button> */}
                 </WebformBox>
             </>
         )

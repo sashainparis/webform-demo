@@ -1,3 +1,4 @@
+import { TextFieldVariants } from '@mui/material';
 
 export type WebformValues = {
     [propName: string]: string,
@@ -21,7 +22,9 @@ export type WebformField = {
     "required"?: boolean,
     "default_value"?: string,
     "placeholder"?: string,
-    "form"?: string,
+    "form"?: string, 
+    'key': number, 
+    variant?: TextFieldVariants, 
 }
 
 export type WebformData = {
