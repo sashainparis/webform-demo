@@ -6,6 +6,7 @@ import { createClient } from "@/utils/supabase/client";
 import exportWebform from "@/utils/supabase/webform_export";
 import ArchList from "@/components/ArchList";
 
+const limit: number = 12;
 
 export default function Sync() {
     const [connected, setConnected] = useState(false);
@@ -46,19 +47,19 @@ export default function Sync() {
             .select()
             .eq('form_id', 'test')
             .order('created_at', {ascending: false})
-            .limit(10)
+            .limit(limit)
             ;
             const { data: contactValues } =  await supabase.from("dashboard")
             .select()
             .eq('form_id', 'contact')
             .order('created_at', {ascending: false})
-            .limit(10)
+            .limit(limit)
             ;
             const { data: mission1Values } =  await supabase.from("dashboard")
             .select()
             .eq('form_id', 'mission1')
             .order('created_at', {ascending: false})
-            .limit(10)
+            .limit(limit)
             ;
             setArchiveTest(testValues);
             setArchiveContact(contactValues);

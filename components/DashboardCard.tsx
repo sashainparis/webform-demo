@@ -10,7 +10,7 @@ export default function DashboardCard({ title, children }: Props) {
         <>
             <Card
                 variant="outlined"
-                className="bg-white rounded-xl p-4"
+                className="bg-white rounded-xl p-4 mb-8"
             >
                 <h2 className="text-xl pb-4 font-bold text-center">{title}</h2>
                 {children}
