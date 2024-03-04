@@ -18,9 +18,6 @@ import slugify from 'slugify';
 import { setFieldToLocalStorage, setOptionToLocalStorage } from '@/utils/localstorage/webform_set';
 import { getFieldFromLocalStorage, getOptionFromLocalStorage } from '@/utils/localstorage/webform_get';
 import { DatePicker } from '@mui/x-date-pickers';
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import dayjs from 'dayjs';
 
 type Props = {
     field: WebformField,
@@ -145,51 +142,19 @@ function select(field: WebformField) {
 }
 
 function number(field: WebformField) {
-    if (field.multiple) {
-        const rendered = [1, 2, 3].map(key => buildText(field, key))
-        return (
-            <FormControl component="fieldset">
-                <h3>{field.title}</h3>
-                {rendered}
-            </FormControl>
-        )
-    } else {
-        return buildText(field);
-    }
-}
-
-function buildText(field: WebformField, key?: number) {
-    const form = field?.form ?? "";
-    const slug = (key) ? slugify(`${field.title} ${key}`) : slugify(field.title);
-    return <TextField
-        label={field.title}
-        className="bg-white"
-        variant={field.variant}
-        defaultValue={getFieldFromLocalStorage(slug, form)}
-        onChange={event => setFieldToLocalStorage(form, slug, event.target.value)}
-    />
+    return textfield(field);
 }
 
 function date(field: WebformField) {
-    const slug = slugify(field.title);
-    const form = field?.form ?? "";
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='fr'  >
-            <DatePicker
-                label={field.title}
-                className="bg-slate-100"
-                defaultValue={dayjs(getFieldFromLocalStorage(slug, form))}
-                onChange={(newValue) => setFieldToLocalStorage(form, slug, newValue?.toString() ?? "")}
-                format="DD/MM/YYYY"
-            />
-        </LocalizationProvider>
-    );
+    console.log(field);
+    return <DatePicker />;
 }
 
 function link(field: WebformField) {
+    // const slug = slugify(field.title);
     let links;
-    if (field.multiple) {
-        links = [1, 2, 3].map(key => buildUrl(field, key))
+    if(field.multiple) {
+        links = [0,1,2].map(key => buildUrl(field, key))
     } else {
         links = buildUrl(field);
     }

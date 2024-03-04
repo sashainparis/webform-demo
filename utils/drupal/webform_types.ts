@@ -23,8 +23,9 @@ export type WebformField = {
     "default_value"?: string,
     "placeholder"?: string,
     "form"?: string, 
-    'key': number, 
-    variant?: TextFieldVariants, 
+    "key": number, 
+    "variant"?: TextFieldVariants, 
+    "multiple"?: boolean,
 }
 
 export type WebformData = {

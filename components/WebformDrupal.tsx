@@ -13,6 +13,8 @@ import WebformBox from './WebformBox';
 type Props = {
     webform: any,
     webformId?: string,
+    title?: string,
+    noTitle?: boolean,
 }
 
 const defaultVariant = "filled"
@@ -40,7 +42,7 @@ function getElements(elements: string) {
     return newValues;
 }
 
-export default function WebformDrupal({ webform, webformId }: Props) {
+export default function WebformDrupal({ webform, webformId, title, noTitle = false }: Props) {
     const [message, setMessage]: any = useState([]);
     let values: WebformData = JSON.parse(webform.value);
     if(webformId) {
@@ -49,7 +51,12 @@ export default function WebformDrupal({ webform, webformId }: Props) {
             id: webformId,
         }
     }
-    console.log(values);
+    if(title) {
+        values = {
+            ...values,
+            title: title,
+        }
+    }
 
     const WebformHeader = (webform: WebformObject) => {
         const renderedMessage = message.map((line: string, key: number) => (<div key={key}>{line}</div>))
@@ -58,7 +65,7 @@ export default function WebformDrupal({ webform, webformId }: Props) {
                 <div>
                     {renderedMessage}
                 </div>
-                <h2 className="text-2xl py-8 font-bold">{webform.title}</h2>
+                {!noTitle && <h2 className="text-2xl py-8 font-bold">{webform.title}</h2>}
                 <div>
                     {webform.description}
                 </div>

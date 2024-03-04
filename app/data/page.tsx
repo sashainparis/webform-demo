@@ -22,17 +22,17 @@ export default function Data() {
             <div className="grid grid-cols-3 grid-flow-col gap-8">
                 <div className="col-span-1">
                     <DashboardCard title="Mission 1">
-                        <WebformDrupal webform={mission} webformId="mission1" />
+                        <WebformDrupal webform={mission} webformId="mission1" noTitle />
                     </DashboardCard>
                 </div>
                 <div className="col-span-1">
                     <DashboardCard title="Mission 2">
-                        <FormMision />
+                        <WebformDrupal webform={mission} webformId="mission2" noTitle />
                     </DashboardCard>
                 </div>
                 <div className="col-span-1">
                     <DashboardCard title="Mission 3">
-                        <FormMision />
+                        <WebformDrupal webform={mission} webformId="mission3" noTitle />
                     </DashboardCard>
                 </div>
             </div>
