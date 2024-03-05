@@ -1,4 +1,5 @@
 import { loadWebformByName } from "@/utils/drupal/webform";
+import { WebformData } from "@/utils/drupal/webform_types";
 import dynamic from "next/dynamic";
 
 export default function Contact() {
@@ -6,8 +7,10 @@ export default function Contact() {
         () => import('@/components/WebformDrupal'),
         { ssr: false }
     )
-    const test = loadWebformByName('test'); 
-    const contact = loadWebformByName('contact'); 
+    // @ts-ignore
+    const test: WebformData = loadWebformByName('test'); 
+    // @ts-ignore
+    const contact: WebformData = loadWebformByName('contact'); 
     return (
         <>
             <div id="webform_test">

@@ -21,8 +21,6 @@ export default function Mission() {
     const id = parseInt(params?.id) ?? 0;
     const [loading, setLoading]: any = useState(true);
     const [data, setData]: any = useState();
-    // const [webform, setWebform]: any = useState();
-    // let items: WebformData; 
 
     const getWebform = async () => {
         const item: WebformData = await loadWebformByName("mission");
@@ -41,7 +39,7 @@ export default function Mission() {
         { ssr: false }
     )
 
-    // // @ts-ignore
+    // @ts-ignore
     let webform: WebformData = data;
 
     if (webform) {

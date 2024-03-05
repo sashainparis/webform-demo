@@ -4,9 +4,10 @@ import DashboardCard from "@/components/DashboardCard";
 import Link from "next/link";
 import { getWebformFromLocalStorage } from "@/utils/localstorage/webform_get";
 import { useEffect, useState } from "react";
+import { WebformData, WebformElements } from "@/utils/drupal/webform_types";
 
 export default function MissionsList() {
-    const [records, setRecords]: any = useState();
+    const [records, setRecords]: any[] = useState();
 
     useEffect(() => {
         setRecords(getWebformFromLocalStorage("mission", 99));
