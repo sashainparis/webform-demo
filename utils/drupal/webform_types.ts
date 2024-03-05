@@ -29,13 +29,20 @@ export type WebformField = {
     "multi"?: number,
 }
 
+export type WebformConfirmation = {
+    type: string,
+    url: string,
+    message: string,
+}
+
 export type WebformData = {
-    description: string,
-    elements: string,
     id: string,
-    status: string,
-    title: string,
     uuid: string,
+    title: string,
+    description: string,
+    status: string,
+    confirmation: WebformConfirmation,
+    elements: string,
 }
 
 export type WebformObject = {

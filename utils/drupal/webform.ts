@@ -1,3 +1,4 @@
+import { WebformData } from "./webform_types";
 import fetchWebforms from "./webforms_fetch";
 
 function normalizeWebform(id: string, uuid: string, webform: any) {
@@ -13,7 +14,7 @@ function normalizeWebform(id: string, uuid: string, webform: any) {
             message: webform.settings.confirmation_message,
         },
         elements: webform.elements,
-    };
+    }
 }
 
 export async function loadWebform(id: string) {

@@ -11,11 +11,9 @@ export const getOptionFromLocalStorage = (option: string, name: string, form: st
 }
 
 export const getWebformFromLocalStorage = (form: string, multi?: number) => {
-    console.log(`form--${form}`);
     if (typeof window !== 'undefined') {
         if (multi) {
             const values = JSON.parse(localStorage.getItem(`form--${form}`) || "[]");
-            console.log(values);
             return values;
         } else {
             return JSON.parse(localStorage.getItem(`form--${form}`) || "{}");
@@ -25,7 +23,7 @@ export const getWebformFromLocalStorage = (form: string, multi?: number) => {
 
 export const getWebformFromLocalStorageById = (form: string, multi?: number) => {
     const webforms = getWebformFromLocalStorage(form, multi);
-    if (multi) {
+    if (multi || multi === 0) {
         if (!(webforms[multi])) {
             webforms.push({});
         }

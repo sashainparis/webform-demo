@@ -2,7 +2,6 @@
 
 import DashboardCard from "@/components/DashboardCard";
 import Link from "next/link";
-import { Button } from '@mui/material';
 import { getWebformFromLocalStorage } from "@/utils/localstorage/webform_get";
 import { useEffect, useState } from "react";
 
@@ -12,7 +11,6 @@ export default function MissionsList() {
     useEffect(() => {
         setRecords(getWebformFromLocalStorage("mission", 99));
     }, [])
-
 
     let next: number = 1;
     let links: any[] = [];

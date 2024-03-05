@@ -1,25 +1,21 @@
 "use client"
 
-import { useState } from 'react';
 import YAML from "js-yaml";
 import {
     WebformData,
-    WebformField,
     WebformObject
 } from '@/utils/drupal/webform_types';
-import WebformDrupalField from './WebformDrupalField';
-import WebformBox from './WebformBox';
 import DashboardCard from './DashboardCard';
+import WebformDrupalFields from './WebformDrupalFields';
+import WebformDrupalHeader from './WebformDrupalHeader';
 
 type Props = {
-    webform: any,
+    webform: WebformData,
     webformId?: string,
     title?: string,
     noTitle?: boolean,
     multi?: number,
 }
-
-const defaultVariant = "filled"
 
 function getElements(elements: string) {
     const values = YAML.load(elements);
@@ -45,79 +41,29 @@ function getElements(elements: string) {
 }
 
 export default function WebformDrupal({ webform, webformId, title, noTitle = false, multi }: Props) {
-    // const [message, setMessage]: any = useState([]);
-    let values: WebformData = JSON.parse(webform.value);
     if (webformId) {
-        values = {
-            ...values,
+        webform = {
+            ...webform,
             id: webformId,
         }
     }
     if (title) {
-        values = {
-            ...values,
+        webform = {
+            ...webform,
             title: title,
         }
     }
 
-    const WebformHeader = (webform: WebformObject) => {
-        // const renderedMessage = message.map((line: string, key: number) => (<div key={key}>{line}</div>))
-        return (
-            <>
-                {/* <div>
-                    {renderedMessage}
-                </div> */}
-                {!noTitle && <h2 className="text-2xl py-8 font-bold">{webform.title}</h2>}
-                <div>
-                    {webform.description}
-                </div>
-            </>
-        )
-    }
-
-    const WebformIsClosed = () => (
-        <>
-            <div>
-                Ce formulaire est actuellement fermé.
-            </div>
-        </>
-    )
-    if (values && values?.status !== "open") {
-        return (<WebformIsClosed />)
-    }
-
     const webformValues: WebformObject = {
-        ...values,
-        elements: getElements(values?.elements),
-    }
-
-    function renderedWebform(webform: WebformObject) {
-        const elements = webform.elements ?? {};
-
-        const fields = Object.values(elements).map((field: WebformField, key) => {
-            field = {
-                ...field,
-                form: webform.id,
-                key: key,
-                variant: defaultVariant,
-                multi: multi,
-            }
-            return <WebformDrupalField key={key} field={field} />
-        })
-        return (
-            <>
-                <WebformBox>
-                    {fields}
-                </WebformBox>
-            </>
-        )
+        ...webform,
+        elements: getElements(webform?.elements),
     }
 
     return (
         <>
             <DashboardCard title={title ?? webform.title}>
-                {WebformHeader(webformValues)}
-                {renderedWebform(webformValues)}
+                <WebformDrupalHeader webform={webformValues} noTitle />
+                <WebformDrupalFields webform={webformValues} multi={multi} />
             </DashboardCard>
         </>
     )

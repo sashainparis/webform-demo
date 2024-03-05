@@ -28,7 +28,6 @@ type Props = {
     key: number,
 }
 
-
 export default function WebformDrupalField({ field }: Props) {
     return loadField(field);
 }
@@ -167,6 +166,7 @@ function buildText(field: WebformField, key?: number) {
     const slug = (key) ? slugify(`${field.title} ${key}`) : slugify(field.title);
     const multi = field?.multi;
     return <TextField
+        key={key}
         label={field.title}
         className="bg-white"
         variant={field.variant}
@@ -213,6 +213,7 @@ function buildUrl(field: WebformField, key?: number) {
     const multi = field?.multi;
     return (
         <TextField
+            key={key}
             label="URL"
             className="bg-white"
             variant={field.variant}

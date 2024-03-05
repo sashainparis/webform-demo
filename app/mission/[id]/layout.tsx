@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import Loading from "../../loading";
 import MissionsList from "./@list/page";
+import Loading from "@/app/loading";
 
 export default function MissionsLayout({
     children,
