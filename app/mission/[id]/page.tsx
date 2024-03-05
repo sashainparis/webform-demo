@@ -6,16 +6,6 @@ import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-// type Props = {
-//     params: { id: string }
-// }
-
-// async function getMission () {
-//     const values = await loadWebformByName("mission");
-//     return values;
-// }
-
-// export default function Mission({ params }: Props) {
 export default function Mission() {
     const params = useParams<{ id: string }>()
     const id = parseInt(params?.id) ?? 0;
