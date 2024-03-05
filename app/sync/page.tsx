@@ -18,7 +18,7 @@ export default function Sync() {
     const [loaded, setLoaded] = useState(false);
     const [archiveTest, setArchiveTest]: any = useState();
     const [archiveContact, setArchiveContact]: any = useState();
-    const [archiveMission1, setArchiveMission1]: any = useState();
+    const [archiveMission, setArchiveMission]: any = useState();
 
     const canIinitSupabaseClient = () => {
         try {
@@ -28,8 +28,8 @@ export default function Sync() {
             return false;
         }
     };
-    
-        const canIaccessSupabaseDatabase = async () => {
+
+    const canIaccessSupabaseDatabase = async () => {
         const supabase = createClient();
         const { data: dashboard } = await supabase.from("dashboard").select();
 
@@ -43,27 +43,27 @@ export default function Sync() {
     useEffect(() => {
         const fetchPosts = async () => {
             const supabase = createClient();
-            const { data: testValues } =  await supabase.from("dashboard")
-            .select()
-            .eq('form_id', 'test')
-            .order('created_at', {ascending: false})
-            .limit(limit)
-            ;
-            const { data: contactValues } =  await supabase.from("dashboard")
-            .select()
-            .eq('form_id', 'contact')
-            .order('created_at', {ascending: false})
-            .limit(limit)
-            ;
-            const { data: mission1Values } =  await supabase.from("dashboard")
-            .select()
-            .eq('form_id', 'mission1')
-            .order('created_at', {ascending: false})
-            .limit(limit)
-            ;
+            const { data: testValues } = await supabase.from("dashboard")
+                .select()
+                .eq('form_id', 'test')
+                .order('created_at', { ascending: false })
+                .limit(limit)
+                ;
+            const { data: contactValues } = await supabase.from("dashboard")
+                .select()
+                .eq('form_id', 'contact')
+                .order('created_at', { ascending: false })
+                .limit(limit)
+                ;
+            const { data: missionValues } = await supabase.from("dashboard")
+                .select()
+                .eq('form_id', 'mission')
+                .order('created_at', { ascending: false })
+                .limit(limit)
+                ;
             setArchiveTest(testValues);
             setArchiveContact(contactValues);
-            setArchiveMission1(mission1Values);
+            setArchiveMission(missionValues);
             setLoaded(true);
         }
 
@@ -71,7 +71,7 @@ export default function Sync() {
     }, [
         setArchiveTest,
         setArchiveContact,
-        setArchiveMission1,
+        setArchiveMission,
         setLoaded])
 
     useEffect(() => {
@@ -109,14 +109,14 @@ export default function Sync() {
                         <Button type="submit" variant="contained" onClick={() => { exportWebform("contact") }}>Save CONTACT Form to DB</Button>
                     </div>
                     <div className="py-4">
-                        <Button type="submit" variant="contained" onClick={() => { exportWebform("mission1") }}>Save MISSION1 Form to DB</Button>
+                        <Button type="submit" variant="contained" onClick={() => { exportWebform("mission") }}>Save MISSION Form to DB</Button>
                     </div>
                 </div>
                 <div>
                     <h2 className="text-2xl py-4">Reload your data</h2>
                     {archiveTest && <ArchList key="test" name="test" title="Test" items={archiveTest} />}
                     {archiveContact && <ArchList key="contact" name="contact" title="Contact" items={archiveContact} />}
-                    {archiveMission1 && <ArchList key="mission1" name="mission1" title="Mission 1" items={archiveMission1} />}
+                    {archiveMission && <ArchList key="mission" name="mission" title="Mission" items={archiveMission} />}
                 </div>
             </div>
         </>

@@ -9,12 +9,14 @@ import {
 } from '@/utils/drupal/webform_types';
 import WebformDrupalField from './WebformDrupalField';
 import WebformBox from './WebformBox';
+import DashboardCard from './DashboardCard';
 
 type Props = {
     webform: any,
     webformId?: string,
     title?: string,
     noTitle?: boolean,
+    multi?: number,
 }
 
 const defaultVariant = "filled"
@@ -42,16 +44,16 @@ function getElements(elements: string) {
     return newValues;
 }
 
-export default function WebformDrupal({ webform, webformId, title, noTitle = false }: Props) {
-    const [message, setMessage]: any = useState([]);
+export default function WebformDrupal({ webform, webformId, title, noTitle = false, multi }: Props) {
+    // const [message, setMessage]: any = useState([]);
     let values: WebformData = JSON.parse(webform.value);
-    if(webformId) {
+    if (webformId) {
         values = {
             ...values,
             id: webformId,
         }
     }
-    if(title) {
+    if (title) {
         values = {
             ...values,
             title: title,
@@ -59,12 +61,12 @@ export default function WebformDrupal({ webform, webformId, title, noTitle = fal
     }
 
     const WebformHeader = (webform: WebformObject) => {
-        const renderedMessage = message.map((line: string, key: number) => (<div key={key}>{line}</div>))
+        // const renderedMessage = message.map((line: string, key: number) => (<div key={key}>{line}</div>))
         return (
             <>
-                <div>
+                {/* <div>
                     {renderedMessage}
-                </div>
+                </div> */}
                 {!noTitle && <h2 className="text-2xl py-8 font-bold">{webform.title}</h2>}
                 <div>
                     {webform.description}
@@ -91,18 +93,14 @@ export default function WebformDrupal({ webform, webformId, title, noTitle = fal
 
     function renderedWebform(webform: WebformObject) {
         const elements = webform.elements ?? {};
-        if (!elements) {
-            return (<>
-                Erreur de connexion
-            </>)
-        }
 
         const fields = Object.values(elements).map((field: WebformField, key) => {
             field = {
                 ...field,
-                form: webform.id, 
-                key: key, 
+                form: webform.id,
+                key: key,
                 variant: defaultVariant,
+                multi: multi,
             }
             return <WebformDrupalField key={key} field={field} />
         })
@@ -117,8 +115,10 @@ export default function WebformDrupal({ webform, webformId, title, noTitle = fal
 
     return (
         <>
-            {WebformHeader(webformValues)}
-            {renderedWebform(webformValues)}
+            <DashboardCard title={title ?? webform.title}>
+                {WebformHeader(webformValues)}
+                {renderedWebform(webformValues)}
+            </DashboardCard>
         </>
     )
 }

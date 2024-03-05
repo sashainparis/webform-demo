@@ -26,6 +26,7 @@ export type WebformField = {
     "key": number, 
     "variant"?: TextFieldVariants, 
     "multiple"?: boolean,
+    "multi"?: number,
 }
 
 export type WebformData = {

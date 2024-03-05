@@ -54,42 +54,45 @@ function loadField(field: WebformField) {
 function textfield(field: WebformField) {
     const slug = slugify(field.title);
     const form = field?.form ?? "";
+    const multi = field?.multi;
     return <TextField
         label={field.title}
         className="bg-white"
         variant={field.variant}
-        defaultValue={getFieldFromLocalStorage(slug, form)}
-        onChange={event => setFieldToLocalStorage(form, slug, event.target.value)}
+        defaultValue={getFieldFromLocalStorage(slug, form, multi)}
+        onChange={event => setFieldToLocalStorage(form, slug, event.target.value, multi)}
     />
 }
 
 function textarea(field: WebformFieldTextarea) {
     const slug = slugify(field.title);
     const form = field?.form ?? "";
+    const multi = field?.multi;
     return <TextField
         label={field.title}
         className="bg-white"
         variant={field.variant}
         multiline
         rows={field.rows ?? 4}
-        defaultValue={getFieldFromLocalStorage(slug, form)}
-        onChange={event => setFieldToLocalStorage(form, slug, event.target.value)}
+        defaultValue={getFieldFromLocalStorage(slug, form, multi)}
+        onChange={event => setFieldToLocalStorage(form, slug, event.target.value, multi)}
     />
 }
 
 function checkbox(field: WebformField) {
     const form = field?.form ?? "";
-    return buildCheckbox(field.title, field.title, form);
+    const multi = field?.multi;
+    return buildCheckbox(field.title, field.title, form, "", 0, multi);
 }
 
-function buildCheckbox(option: string, label: string, form: string, wrapper: string = "", key: number = 0) {
+function buildCheckbox(option: string, label: string, form: string, wrapper: string = "", key: number = 0, multi?: number) {
     const slugWrapper = slugify(wrapper);
     const name = slugify(option);
     let defaultValue;
     if (wrapper) {
         defaultValue = (name === getOptionFromLocalStorage(slugWrapper, name, form)) ? true : false;
     } else {
-        defaultValue = (name === getFieldFromLocalStorage(name, form)) ? true : false;
+        defaultValue = (name === getFieldFromLocalStorage(name, form, multi)) ? true : false;
     }
     return <FormControlLabel
         key={key}
@@ -103,9 +106,9 @@ function buildCheckbox(option: string, label: string, form: string, wrapper: str
                         ? setOptionToLocalStorage(form, slugWrapper, name, "")
                         : setOptionToLocalStorage(form, slugWrapper, name, event.target.value)
                 } else {
-                    name === getFieldFromLocalStorage(name, form)
-                        ? setFieldToLocalStorage(form, name, "")
-                        : setFieldToLocalStorage(form, name, event.target.value)
+                    name === getFieldFromLocalStorage(name, form, multi)
+                        ? setFieldToLocalStorage(form, name, "", multi)
+                        : setFieldToLocalStorage(form, name, event.target.value, multi)
                 }
             }}
         />
@@ -118,11 +121,12 @@ function buildCheckbox(option: string, label: string, form: string, wrapper: str
 function checkboxes(field: WebformFieldCheckboxes) {
     let checkboxes = [];
     const form = field?.form ?? "";
+    const multi = field?.multi;
     let i = 0
     for (const option in field.options) {
         const text = field.options[option].split(" -- ");
         const label = text[1] ? `${text[0]} (${text[1]})` : text[0];
-        const currentCheckbox = buildCheckbox(option, label, form, field.title, i);
+        const currentCheckbox = buildCheckbox(option, label, form, field.title, i, multi);
         checkboxes.push(currentCheckbox);
         i++;
     }
@@ -161,25 +165,27 @@ function number(field: WebformField) {
 function buildText(field: WebformField, key?: number) {
     const form = field?.form ?? "";
     const slug = (key) ? slugify(`${field.title} ${key}`) : slugify(field.title);
+    const multi = field?.multi;
     return <TextField
         label={field.title}
         className="bg-white"
         variant={field.variant}
-        defaultValue={getFieldFromLocalStorage(slug, form)}
-        onChange={event => setFieldToLocalStorage(form, slug, event.target.value)}
+        defaultValue={getFieldFromLocalStorage(slug, form, multi)}
+        onChange={event => setFieldToLocalStorage(form, slug, event.target.value, multi)}
     />
 }
 
 function date(field: WebformField) {
     const slug = slugify(field.title);
     const form = field?.form ?? "";
+    const multi = field?.multi;
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='fr'  >
             <DatePicker
                 label={field.title}
                 className="bg-slate-100"
-                defaultValue={dayjs(getFieldFromLocalStorage(slug, form))}
-                onChange={(newValue) => setFieldToLocalStorage(form, slug, newValue?.toString() ?? "")}
+                defaultValue={dayjs(getFieldFromLocalStorage(slug, form, multi))}
+                onChange={(newValue) => setFieldToLocalStorage(form, slug, newValue?.toString() ?? "", multi)}
                 format="DD/MM/YYYY"
             />
         </LocalizationProvider>
@@ -204,13 +210,14 @@ function link(field: WebformField) {
 function buildUrl(field: WebformField, key?: number) {
     const form = field?.form ?? "";
     const slug = (key) ? slugify(`${field.title} ${key}`) : slugify(field.title);
+    const multi = field?.multi;
     return (
         <TextField
             label="URL"
             className="bg-white"
             variant={field.variant}
-            defaultValue={getFieldFromLocalStorage(slug, form)}
-            onChange={event => setFieldToLocalStorage(form, slug, event.target.value)}
+            defaultValue={getFieldFromLocalStorage(slug, form, multi)}
+            onChange={event => setFieldToLocalStorage(form, slug, event.target.value, multi)}
         />
     )
 }
