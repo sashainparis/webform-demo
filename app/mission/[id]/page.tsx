@@ -21,6 +21,10 @@ export default function Mission() {
     const id = parseInt(params?.id) ?? 0;
     const [loading, setLoading]: any = useState(true);
     const [data, setData]: any = useState();
+    const WebformDrupal = dynamic(
+        () => import('@/components/WebformDrupal'),
+        { ssr: false }
+    )
 
     const getWebform = async () => {
         const item: WebformData = await loadWebformByName("mission");
@@ -34,13 +38,8 @@ export default function Mission() {
         }
     }, [setData, setLoading]);
 
-    const WebformDrupal = dynamic(
-        () => import('@/components/WebformDrupal'),
-        { ssr: false }
-    )
-
     // @ts-ignore
-    let webform: WebformData = data;
+    const webform: WebformData = data;
 
     if (webform) {
         return (
