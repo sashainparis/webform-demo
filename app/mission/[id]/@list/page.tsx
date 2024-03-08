@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import { WebformData, WebformElements } from "@/utils/drupal/webform_types";
 
 export default function MissionsList() {
+    const [loading, setLoading]: any = useState(true);
     const [records, setRecords]: any[] = useState();
 
     useEffect(() => {
         setRecords(getWebformFromLocalStorage("mission", 99));
-    }, [])
+        setLoading(false);
+    }, [setRecords, setLoading])
 
     let next: number = 1;
     let links: any[] = [];
@@ -23,7 +25,8 @@ export default function MissionsList() {
             )
         })
     }
-    links.push(<li key="new"><Link href={`/mission/${next}`}>New mission</Link></li>);
+    const newMission = <li key="new"><Link href={`/mission/${next}`}>New mission</Link></li>;
+    links.push(newMission);
     const list = <ul className="" >
         {links}
     </ul>;

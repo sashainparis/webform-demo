@@ -22,8 +22,8 @@ export const getWebformFromLocalStorage = (form: string, multi?: number) => {
 }
 
 export const getWebformFromLocalStorageById = (form: string, multi?: number) => {
-    const webforms = getWebformFromLocalStorage(form, multi);
-    if (multi || multi === 0) {
+    let webforms = getWebformFromLocalStorage(form, multi);
+    if (webforms && (multi || multi === 0)) {
         if (!(webforms[multi])) {
             webforms.push({});
         }

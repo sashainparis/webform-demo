@@ -6,6 +6,8 @@ import MainLogo from "@/components/MainLogo";
 import AuthButton from "@/components/AuthButton";
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import NavigationButtons from "@/components/NavigationButtons";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -47,7 +49,9 @@ export default function RootLayout({
                 </div>
               </nav>
 
-              {children}
+              <Suspense fallback={<Loading />} >
+                {children}
+              </Suspense>
 
               <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
                 <p>
