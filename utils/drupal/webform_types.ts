@@ -1,5 +1,13 @@
 import { TextFieldVariants } from '@mui/material';
 
+export type WebformsValues = MultiWebformValues | WebformValues;
+
+export type MultiWebformValues = MultiWebform[];
+
+export type MultiWebform = WebformValues & {
+    id: number,
+}
+
 export type WebformValues = {
     [propName: string]: string |string[],
 }

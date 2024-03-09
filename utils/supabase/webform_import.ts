@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/client";
 import { WebformValues } from "../drupal/webform_types";
-import { setFieldToLocalStorage, setWebformToLocalStorage } from "../localstorage/webform_set";
+import { setWebformToLocalStorage } from "../localstorage/webform_set";
 
 export default async function importWebform(name: string, id: string) {
     const values = await loadWebform(name, id);
@@ -18,7 +18,7 @@ export async function loadWebform(formId: string, id: string) {
     return result.data?.pop();
 }
 
-function structValues(values: any): WebformValues {
-    let data: WebformValues = values.data;
-    return data;
-}
+// function structValues(values: any): WebformValues {
+//     let data: WebformValues = values.data;
+//     return data;
+// }

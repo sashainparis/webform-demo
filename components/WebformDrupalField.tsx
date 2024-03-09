@@ -185,6 +185,7 @@ function date(field: WebformField) {
             <DatePicker
                 label={field.title}
                 className="bg-slate-100"
+                // @ts-ignore
                 defaultValue={dayjs(getFieldFromLocalStorage(slug, form, multi))}
                 onChange={(newValue) => setFieldToLocalStorage(form, slug, newValue?.toString() ?? "", multi)}
                 format="DD/MM/YYYY"

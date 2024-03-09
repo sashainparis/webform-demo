@@ -33,13 +33,17 @@ export default function Mission() {
 
     if (webform) {
         return (
-            <WebformDrupal
-                webform={webform}
-                webformId="mission"
-                multi={id}
-                title="Mission"
-                noTitle
-            />
+            <>
+                <div className="container mx-auto px-4 xl:px-60" >
+                    <WebformDrupal
+                        webform={webform}
+                        webformId="mission"
+                        multi={id}
+                        title="Mission"
+                        noTitle
+                    />
+                </div>
+            </>
         )
     }
 }

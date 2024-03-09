@@ -54,7 +54,7 @@ export default function WebformDrupal({ webform, webformId, title, noTitle = fal
         }
     }
 
-    const webformValues: WebformObject = {
+    const webformObj: WebformObject = {
         ...webform,
         elements: getElements(webform?.elements),
     }
@@ -62,8 +62,8 @@ export default function WebformDrupal({ webform, webformId, title, noTitle = fal
     return (
         <>
             <DashboardCard title={title ?? webform.title}>
-                <WebformDrupalHeader webform={webformValues} noTitle />
-                <WebformDrupalFields webform={webformValues} multi={multi} />
+                <WebformDrupalHeader webform={webformObj} noTitle />
+                <WebformDrupalFields webform={webformObj} multi={multi} />
             </DashboardCard>
         </>
     )

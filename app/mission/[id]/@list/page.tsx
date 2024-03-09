@@ -4,7 +4,6 @@ import DashboardCard from "@/components/DashboardCard";
 import Link from "next/link";
 import { getWebformFromLocalStorage } from "@/utils/localstorage/webform_get";
 import { useEffect, useState } from "react";
-import { WebformData, WebformElements } from "@/utils/drupal/webform_types";
 
 export default function MissionsList() {
     const [loading, setLoading]: any = useState(true);

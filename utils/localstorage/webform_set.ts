@@ -1,47 +1,44 @@
-import { WebformValues } from "../drupal/webform_types";
-import { getWebformFromLocalStorage } from "./webform_get"
+import { MultiWebform, MultiWebformValues, WebformsValues } from "../drupal/webform_types";
+import { getMultiWebformFromLocalStorageById, getMultiWebformFromLocalStorageOther, getWebformFromLocalStorage, getWebformFromLocalStorageById } from "./webform_get"
 
 export const setFieldToLocalStorage = (form: string, name: string, value: string, multi?: number) => {
-    if (multi) {
-        let webforms = getWebformFromLocalStorage(form, multi);
-        console.log(webforms);    
-        let values = webforms[multi];
-        console.log(values);
+    if (multi || multi === 0) {
+        // @ts-ignore
+        let webforms: MultiWebformValues = getMultiWebformFromLocalStorageOther(form, multi);
+        // @ts-ignore
+        let values: MultiWebform = getMultiWebformFromLocalStorageById(form, multi) ?? {id: multi};
+        if (values) {
+            values = {
+                ...values,
+                [name]: value,
+            }
+            webforms.push(values);
+        }
+        setWebformToLocalStorage(form, webforms);
+    } else {
+        let values = getWebformFromLocalStorage(form);
         values = {
             ...values,
             [name]: value,
         }
-        console.log(values);
-        webforms[multi] = values
-        console.log(webforms);    
-        setWebformToLocalStorage(form, webforms);
-    } else {
-        let values = getWebformFromLocalStorage(form);
-        console.log(values);
-            values = {
-            ...values,
-            [name]: value,
-        }
-        console.log(values);
         setWebformToLocalStorage(form, values);
     }
 }
 
 export const setOptionToLocalStorage = (form: string, option: string, name: string, value: string) => {
     let values = getWebformFromLocalStorage(form);
-    console.log(values);
     values = {
         ...values,
         [option]: {
+            // @ts-ignore
             ...values[option],
             [name]: value,
         }
     }
-    console.log(values);
     setWebformToLocalStorage(form, values);
 }
 
-export const setWebformToLocalStorage = (form: string, values: WebformValues) => {
+export const setWebformToLocalStorage = (form: string, values: WebformsValues) => {
     if (typeof window !== 'undefined') {
         localStorage.setItem(`form--${form}`, JSON.stringify(values))
     }
