@@ -51,11 +51,20 @@ function loadField(field: WebformField) {
     return (rendered);
 }
 
+function isError(field: WebformField) {
+    if(field.title === "Subject") {
+        return true;
+    }
+    return false;
+}
+
 function textfield(field: WebformField) {
     const slug = slugify(field.title);
     const form = field?.form ?? "";
     const multi = field?.multi;
     return <TextField
+        error={isError(field)}
+        helperText="Zut alors !"
         label={field.title}
         className="bg-white"
         variant={field.variant}

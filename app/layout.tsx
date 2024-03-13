@@ -34,17 +34,16 @@ export default function RootLayout({
                 <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
                   <Link href="/">
                     <div className="flex gap-4 justify-center items-center">
-                      <MainLogo />
-                      <div className="text-xl">Octopus CEO - Dashboard</div>
+                      <div className="text-xl">Webform Démo</div>
                     </div>
                   </Link>
                   <div className="flex gap-4 justify-center items-center">
                     <NavigationButtons />
                   </div>
-                  <div className="flex gap-4 justify-center items-center">
+                  {/* <div className="flex gap-4 justify-center items-center">
                     <SettingsButtons />
                     <AuthButton />
-                  </div>
+                  </div> */}
                   {/* {isSupabaseConnected && <AuthButton />} */}
                 </div>
               </nav>
