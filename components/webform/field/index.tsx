@@ -1,4 +1,5 @@
 
+export { Field } from "./BaseField"
 export { Field as WfTextField } from "./TextField"
 export { Field as WfTextArea } from "./TextArea"
 export { Field as WfEmail } from "./Email"
