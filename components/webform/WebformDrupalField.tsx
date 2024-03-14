@@ -16,7 +16,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
-import {WfCheckbox, WfCheckboxes, WfEmail, WfNumber, WfSelect, WfTextArea, WfTextField} from './field';
+import {
+    WfCheckbox,
+    WfCheckboxes,
+    WfDate,
+    WfEmail,
+    WfLink,
+    WfNumber,
+    WfSelect,
+    WfTextArea,
+    WfTextField
+} from './field';
 
 type Props = {
     field: WebformField,
@@ -37,9 +47,9 @@ function loadField(field: WebformField) {
         case 'select': rendered = <WfSelect field={field} />; break;
         case 'checkbox': rendered = <WfCheckbox field={field} />; break;
         case 'checkboxes': rendered = <WfCheckboxes field={field} />; break;
-        case 'webform_link': rendered = link(field); break;
+        case 'webform_link': rendered = <WfLink field={field} />; break;
         case 'number': rendered = <WfNumber field={field} />; break;
-        case 'date': rendered = date(field); break;
+        case 'date': rendered = <WfDate field={field} />; break;
         default: rendered = <></>
     }
     return (rendered);
@@ -200,54 +210,54 @@ export function fieldValue(field: WebformField) {
 //     />
 // }
 
-function date(field: WebformField) {
-    const slug = slugify(field.title);
-    const form = field?.form ?? "";
-    const multi = field?.multi;
-    return (
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='fr'  >
-            <DatePicker
-                label={field.title}
-                className="bg-slate-100"
-                // @ts-ignore
-                defaultValue={dayjs(getFieldFromLocalStorage(slug, form, multi))}
-                onChange={(newValue) => setFieldToLocalStorage(form, slug, newValue?.toString() ?? "", multi)}
-                format="DD/MM/YYYY"
-            />
-        </LocalizationProvider>
-    );
-}
+// function date(field: WebformField) {
+//     const slug = slugify(field.title);
+//     const form = field?.form ?? "";
+//     const multi = field?.multi;
+//     return (
+//         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='fr'  >
+//             <DatePicker
+//                 label={field.title}
+//                 className="bg-slate-100"
+//                 // @ts-ignore
+//                 defaultValue={dayjs(getFieldFromLocalStorage(slug, form, multi))}
+//                 onChange={(newValue) => setFieldToLocalStorage(form, slug, newValue?.toString() ?? "", multi)}
+//                 format="DD/MM/YYYY"
+//             />
+//         </LocalizationProvider>
+//     );
+// }
 
-function link(field: WebformField) {
-    let links;
-    if (field.multiple) {
-        links = [1, 2, 3].map(key => buildUrl(field, key))
-    } else {
-        links = buildUrl(field);
-    }
-    return (
-        <FormControl component="fieldset">
-            <h3>{field.title}</h3>
-            {links}
-        </FormControl>
-    )
-}
+// function link(field: WebformField) {
+//     let links;
+//     if (field.multiple) {
+//         links = [1, 2, 3].map(key => buildUrl(field, key))
+//     } else {
+//         links = buildUrl(field);
+//     }
+//     return (
+//         <FormControl component="fieldset">
+//             <h3>{field.title}</h3>
+//             {links}
+//         </FormControl>
+//     )
+// }
 
-function buildUrl(field: WebformField, key?: number) {
-    const form = field?.form ?? "";
-    const slug = (key) ? slugify(`${field.title} ${key}`) : slugify(field.title);
-    const multi = field?.multi;
-    return (
-        <TextField
-            key={key}
-            label="URL"
-            className="bg-white"
-            variant={field.variant}
-            defaultValue={getFieldFromLocalStorage(slug, form, multi)}
-            onChange={event => setFieldToLocalStorage(form, slug, event.target.value, multi)}
-        />
-    )
-}
+// function buildUrl(field: WebformField, key?: number) {
+//     const form = field?.form ?? "";
+//     const slug = (key) ? slugify(`${field.title} ${key}`) : slugify(field.title);
+//     const multi = field?.multi;
+//     return (
+//         <TextField
+//             key={key}
+//             label="URL"
+//             className="bg-white"
+//             variant={field.variant}
+//             defaultValue={getFieldFromLocalStorage(slug, form, multi)}
+//             onChange={event => setFieldToLocalStorage(form, slug, event.target.value, multi)}
+//         />
+//     )
+// }
 
 // function email(field: WebformField) {
 //     return textfield(field);
