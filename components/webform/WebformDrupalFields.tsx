@@ -1,8 +1,8 @@
 "use client"
 
 import { WebformField, WebformObject } from "@/utils/drupal/webform_types";
-import WebformBox from "./WebformBox";
-import WebformDrupalField from "./WebformDrupalField";
+import WebformBox from "@/components/webform/WebformBox";
+import WebformDrupalField from "@/components/webform/WebformDrupalField";
 
 
 type Props = {

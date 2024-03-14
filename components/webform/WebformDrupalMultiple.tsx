@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from '@mui/material';
-import DashboardCard from "./DashboardCard";
+import DashboardCard from "@/components/DashboardCard";
 import dynamic from "next/dynamic";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export default function WebformDrupalMultiple({ webform }: Props) {
     const WebformDrupal = dynamic(
-        () => import('@/components/WebformDrupal'),
+        () => import('@/components/webform/WebformDrupal'),
         { ssr: false }
     )
 

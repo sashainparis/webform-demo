@@ -10,7 +10,7 @@ export default function Contact() {
     const [test, setTest]: any = useState();
     const [contact, setContact]: any = useState();
     const WebformDrupal = dynamic(
-        () => import('@/components/WebformDrupal'),
+        () => import('@/components/webform/WebformDrupal'),
         { ssr: false }
     )
 
@@ -39,9 +39,9 @@ export default function Contact() {
                 <div id="webform_test">
                     <WebformDrupal webform={webformTest} webformId="test" />
                 </div>
-                <div id="webform_contact">
+                {/* <div id="webform_contact">
                     <WebformDrupal webform={webformContact} webformId="contact" />
-                </div>
+                </div> */}
             </>
         )
     }

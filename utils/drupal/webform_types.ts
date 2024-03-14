@@ -20,9 +20,9 @@ export type WebformFieldTextarea = WebformField & {
     "rows"?: number,
 }
 
-export type WebformFieldCheckboxes = WebformField & {
-    "options": string[],
-}
+// export type WebformFieldWithOptions = WebformField & {
+//     "options": string[],
+// }
 
 export type WebformField = {
     "type": string,
@@ -35,6 +35,8 @@ export type WebformField = {
     "variant"?: TextFieldVariants, 
     "multiple"?: boolean,
     "multi"?: number,
+    "rows"?: number,
+    "options"?: string[],
 }
 
 export type WebformConfirmation = {

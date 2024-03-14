@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import ConnectSupabaseSteps from "./ConnectSupabaseSteps"
-import SignUpUserSteps from "./SignUpUserSteps"
+import ConnectSupabaseSteps from "@/components/ConnectSupabaseSteps"
+import SignUpUserSteps from "@/components/SignUpUserSteps"
 import { createClient } from "@/utils/supabase/client";
 
 export default function MainBody() {
