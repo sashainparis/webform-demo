@@ -28,6 +28,7 @@ export type WebformField = {
     "type": string,
     "title": string,
     "required"?: boolean,
+    "required_error"?: string,
     "default_value"?: string,
     "placeholder"?: string,
     "form"?: string, 
@@ -37,6 +38,11 @@ export type WebformField = {
     "multi"?: number,
     "rows"?: number,
     "options"?: string[],
+    "counter_type"?: "word"|"character",
+    "counter_minimum"?: number,
+    "counter_minimum_message"?: string,
+    "counter_maximum"?: number,
+    "counter_maximum_message"?: string,
 }
 
 export type WebformConfirmation = {

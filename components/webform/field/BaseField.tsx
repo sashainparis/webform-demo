@@ -10,7 +10,6 @@ import { ChangeEventHandler, ReactEventHandler } from "react";
 
 export type FieldProps = {
     field: WebformField,
-    onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> | undefined,
 }
 
 export function fieldValue(field: WebformField) {
@@ -31,7 +30,7 @@ export function isRequired(field: WebformField) {
 
 export function isError(field: WebformField): boolean {
     const storedValue = fieldValue(field);
-    console.log(storedValue);
+    // console.log(storedValue);
     // if(field.required && storedValue.valueOf() === "") {
     //     return true;
     // }

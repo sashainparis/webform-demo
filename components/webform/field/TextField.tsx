@@ -6,15 +6,13 @@ import {
 import { setFieldToLocalStorage } from '@/utils/localstorage/webform_set';
 import { getFieldFromLocalStorage } from '@/utils/localstorage/webform_get';
 import { loadField } from './RenderField';
-import { FieldProps, errorMsg, fieldValue, isError, isRequired, structField } from './BaseField';
+import { FieldProps, errorMsg, isError, isRequired, structField } from './BaseField';
 import { useEffect, useState } from 'react';
 
 
-export const Field = (({ field, onChange }: FieldProps) => {
+export const Field = (({ field }: FieldProps) => {
     const [item, setItem] = useState(field);
     const { slug, form, multi} = structField(field);
-
-    const onChangeCallback = onChange ?? (event => reloadField(event.target.value));
 
     useEffect(() => {
         loadField(field)
@@ -36,6 +34,6 @@ export const Field = (({ field, onChange }: FieldProps) => {
         className="bg-white"
         variant={field.variant}
         defaultValue={getFieldFromLocalStorage(slug, form, multi)}
-        onChange={onChangeCallback}
+        onChange={event => reloadField(event.target.value)}
     />
 })
