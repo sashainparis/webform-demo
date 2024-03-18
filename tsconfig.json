@@ -22,8 +22,8 @@
     "baseUrl": "src",
     "paths": {
       "@/components/*": ["./components/*"],
-      "@/lib/*": ["../thecontentsystems/lib/*"],
-      "@/webform/*": ["../thecontentsystems/webform/*"],
+      "@/lib/*": ["../thecontentsystems/drupal-webform/lib/*"],
+      "@/webform/*": ["../thecontentsystems/drupal-webform/webform/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

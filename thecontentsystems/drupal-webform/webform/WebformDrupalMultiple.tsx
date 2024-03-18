@@ -9,7 +9,7 @@ type Props = {
 
 export default function WebformDrupalMultiple({ webform }: Props) {
     const WebformDrupal = dynamic(
-        () => import('@/webform/WebformDrupal'),
+        () => import('./WebformDrupal'),
         { ssr: false }
     )
 
