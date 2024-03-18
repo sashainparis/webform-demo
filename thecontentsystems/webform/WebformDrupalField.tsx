@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import {
     WebformField,
-} from "@/utils/drupal/webform_types";
+} from "@/lib/drupal/webform_types";
 import { Field } from './field';
 
 type Props = {

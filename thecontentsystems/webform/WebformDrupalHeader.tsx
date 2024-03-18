@@ -1,4 +1,4 @@
-import { WebformObject } from "@/utils/drupal/webform_types"
+import { WebformObject } from "@/lib/drupal/webform_types"
 import { useState } from "react";
 
 type Props = {

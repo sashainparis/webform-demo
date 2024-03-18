@@ -1,7 +1,7 @@
 "use client"
 
-import { loadWebformByName } from "@/utils/drupal/webform";
-import { WebformData } from "@/utils/drupal/webform_types";
+import { loadWebformByName } from "@/lib/drupal/webform";
+import { WebformData } from "@/lib/drupal/webform_types";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 
@@ -10,7 +10,7 @@ export default function Contact() {
     const [test, setTest]: any = useState();
     const [contact, setContact]: any = useState();
     const WebformDrupal = dynamic(
-        () => import('@/thecontentsystems/webform/WebformDrupal'),
+        () => import('@/webform/WebformDrupal'),
         { ssr: false }
     )
 

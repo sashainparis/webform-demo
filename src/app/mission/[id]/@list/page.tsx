@@ -2,7 +2,7 @@
 
 import DashboardCard from "@/components/DashboardCard";
 import Link from "next/link";
-import { getWebformFromLocalStorage } from "@/utils/localstorage/webform_get";
+import { getWebformFromLocalStorage } from "@/lib/localstorage/webform_get";
 import { useEffect, useState } from "react";
 
 export default function MissionsList() {

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Button } from '@mui/material';
-import { createClient } from "@/utils/supabase/client";
-import exportWebform from "@/utils/supabase/webform_export";
+import { createClient } from "@/lib/supabase/client";
+import exportWebform from "@/lib/supabase/webform_export";
 import ArchList from "@/components/ArchList";
 
 const limit: number = 12;

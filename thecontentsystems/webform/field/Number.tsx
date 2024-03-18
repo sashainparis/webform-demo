@@ -5,10 +5,10 @@ import {
     TextField,
 } from '@mui/material';
 import slugify from 'slugify';
-import { setFieldToLocalStorage } from '@/utils/localstorage/webform_set';
-import { getFieldFromLocalStorage } from '@/utils/localstorage/webform_get';
+import { setFieldToLocalStorage } from '@/lib/localstorage/webform_set';
+import { getFieldFromLocalStorage } from '@/lib/localstorage/webform_get';
 import { FieldProps } from './BaseField';
-import { WebformField } from '@/utils/drupal/webform_types';
+import { WebformField } from '@/lib/drupal/webform_types';
 
 
 export const Field = (({ field }: FieldProps) => {

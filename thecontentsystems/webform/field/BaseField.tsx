@@ -2,9 +2,9 @@
 
 import {
     WebformField,
-} from "@/utils/drupal/webform_types";
+} from "@/lib/drupal/webform_types";
 import slugify from 'slugify';
-import { getFieldFromLocalStorage } from '@/utils/localstorage/webform_get';
+import { getFieldFromLocalStorage } from '@/lib/localstorage/webform_get';
 import { ChangeEventHandler, ReactEventHandler } from "react";
 
 

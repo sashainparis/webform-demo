@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import ConnectSupabaseSteps from "@/components/ConnectSupabaseSteps"
 import SignUpUserSteps from "@/components/SignUpUserSteps"
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 export default function MainBody() {
     const [connected, setConnected] = useState(false);

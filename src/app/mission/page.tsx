@@ -3,9 +3,9 @@
 // import { redirect } from "next/navigation";
 import DashboardCard from "@/components/DashboardCard";
 import Link from "next/link";
-import { getWebformFromLocalStorage } from "@/utils/localstorage/webform_get";
+import { getWebformFromLocalStorage } from "@/lib/localstorage/webform_get";
 import { useEffect, useState } from "react";
-import { MultiWebform, WebformValues, WebformsValues } from "@/utils/drupal/webform_types";
+import { MultiWebform, WebformValues, WebformsValues } from "@/lib/drupal/webform_types";
 import dayjs from "dayjs";
 import "dayjs/locale/fr";
 

@@ -1,8 +1,8 @@
 "use client"
 
 import slugify from 'slugify';
-import { setFieldToLocalStorage } from '@/utils/localstorage/webform_set';
-import { getFieldFromLocalStorage } from '@/utils/localstorage/webform_get';
+import { setFieldToLocalStorage } from '@/lib/localstorage/webform_set';
+import { getFieldFromLocalStorage } from '@/lib/localstorage/webform_get';
 import { FieldProps } from './BaseField';
 import { DatePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from "@mui/x-date-pickers";

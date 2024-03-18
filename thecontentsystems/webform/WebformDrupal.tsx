@@ -4,8 +4,8 @@ import YAML from "js-yaml";
 import {
     WebformData,
     WebformObject
-} from '@/utils/drupal/webform_types';
-import DashboardCard from '../../components/DashboardCard';
+} from '@/lib/drupal/webform_types';
+import DashboardCard from '@/components/DashboardCard';
 import WebformDrupalFields from './WebformDrupalFields';
 import WebformDrupalHeader from './WebformDrupalHeader';
 

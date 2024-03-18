@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { WebformValues } from "../drupal/webform_types";
 import { setWebformToLocalStorage } from "../localstorage/webform_set";
 

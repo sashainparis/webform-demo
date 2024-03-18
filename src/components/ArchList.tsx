@@ -1,6 +1,6 @@
 "use client"
 
-import importWebform from '@/utils/supabase/webform_import';
+import importWebform from '@/lib/supabase/webform_import';
 import { Button } from '@mui/material';
 import DashboardCard from './DashboardCard';
 

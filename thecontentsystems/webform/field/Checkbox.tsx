@@ -8,8 +8,8 @@ import {
     FormGroup,
 } from '@mui/material';
 import slugify from 'slugify';
-import { setFieldToLocalStorage, setOptionToLocalStorage } from '@/utils/localstorage/webform_set';
-import { getFieldFromLocalStorage, getOptionFromLocalStorage } from '@/utils/localstorage/webform_get';
+import { setFieldToLocalStorage, setOptionToLocalStorage } from '@/lib/localstorage/webform_set';
+import { getFieldFromLocalStorage, getOptionFromLocalStorage } from '@/lib/localstorage/webform_get';
 import { FieldProps } from './BaseField';
 
 

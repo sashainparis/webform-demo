@@ -1,4 +1,4 @@
-import DeployButton from "../components/DeployButton";
+import DeployButton from "@/components/DeployButton";
 import MainBody from "@/components/MainBody";
 
 export default async function Index() {

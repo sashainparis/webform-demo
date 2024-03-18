@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { getWebformFromLocalStorage } from "../localstorage/webform_get";
 
 export default async function exportWebform(form: string) {
