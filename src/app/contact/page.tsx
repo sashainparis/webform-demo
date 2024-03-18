@@ -10,7 +10,7 @@ export default function Contact() {
     const [test, setTest]: any = useState();
     const [contact, setContact]: any = useState();
     const WebformDrupal = dynamic(
-        () => import('@/components/webform/WebformDrupal'),
+        () => import('@/thecontentsystems/webform/WebformDrupal'),
         { ssr: false }
     )
 

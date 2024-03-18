@@ -5,7 +5,7 @@ import {
     WebformData,
     WebformObject
 } from '@/utils/drupal/webform_types';
-import DashboardCard from '../DashboardCard';
+import DashboardCard from '../../components/DashboardCard';
 import WebformDrupalFields from './WebformDrupalFields';
 import WebformDrupalHeader from './WebformDrupalHeader';
 

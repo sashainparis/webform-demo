@@ -12,7 +12,7 @@ export default function Mission() {
     const [loading, setLoading]: any = useState(true);
     const [data, setData]: any = useState();
     const WebformDrupal = dynamic(
-        () => import('@/components/webform/WebformDrupal'),
+        () => import('@/thecontentsystems/webform/WebformDrupal'),
         { ssr: false }
     )
 
